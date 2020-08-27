@@ -1,9 +1,6 @@
 package modeloEstructuraDatos;
 
 
-import java.io.FileReader;
-import java.util.Arrays;
-import java.util.Scanner;
 
 
 /**
@@ -22,11 +19,11 @@ public class ArregloDinamico<T extends Comparable<T>>{
 	private final static int COLUMNA_TITULO = 34 ;
 	private final static int COLUMNA_GENERO = 20;
 	private final static int COLUMNA_RELEASE_DATE = 28 ;
-	private final static int COLUMNA_ACTOR_1 = 1 ; 
-	private final static int COLUMNA_ACTOR_2 = 3 ; 
-	private final static int COLUMNA_ACTOR_3 = 5 ; 
-	private final static int COLUMNA_ACTOR_4 = 7 ; 
-	private final static int COLUMNA_ACTOR_5 = 9 ; 
+	private final static int COLUMNA_ACTOR_1 = 1 ;
+	private final static int COLUMNA_ACTOR_2 = 3 ;
+	private final static int COLUMNA_ACTOR_3 = 5 ;
+	private final static int COLUMNA_ACTOR_4 = 7 ;
+	private final static int COLUMNA_ACTOR_5 = 9 ;
 	
 	/**
 	 * Capacidad maxima del arreglo
@@ -39,7 +36,7 @@ public class ArregloDinamico<T extends Comparable<T>>{
 	/**
 	 * Arreglo de elementos de tamaNo maximo
 	 */
-	private Object [][]elementos;
+	private T [][]elementos;
 
 	private int tamanoActColumnas;
 	private int tamanoMaxColumnas;
@@ -50,7 +47,7 @@ public class ArregloDinamico<T extends Comparable<T>>{
 	 */
 	public ArregloDinamico( int maxColumnas, int maxFilas)
 	{
-		elementos = new Object[maxColumnas][maxFilas];
+		elementos = (T[][])new Object[maxColumnas][maxFilas];
 		tamanoMaxFilas = maxFilas;
 		tamanoMaxColumnas = maxColumnas;
 		tamanoActFilas = 0;
@@ -64,11 +61,11 @@ public class ArregloDinamico<T extends Comparable<T>>{
 			tamanoMaxFilas = 2 * tamanoMaxFilas;
 			Object [][] copia = elementos;
 			elementos = null;
-			elementos = new Object[tamanoMaxColumnas][tamanoMaxFilas];
+			elementos = (T[][]) new Object[tamanoMaxColumnas][tamanoMaxFilas];
 			for ( int i = 0; i < tamanoActFilas; i++)
 			{
 				for (int j= 0; j<tamanoActColumnas;j++)
-					elementos[j][i] = copia[j][i];
+					elementos[j][i] = (T) copia[j][i];
 			} 
 			System.out.println("Arreglo filas lleno: " + numeroFila + " - Arreglo filas duplicado: " + tamanoMaxFilas);
 		}
@@ -77,13 +74,13 @@ public class ArregloDinamico<T extends Comparable<T>>{
 			tamanoMaxColumnas = 2 * tamanoMaxColumnas;
 			Object [][] copia = elementos;
 			elementos = null;
-			elementos = new Object[tamanoMaxColumnas][tamanoMaxFilas];
+			elementos = (T[][]) new Object[tamanoMaxColumnas][tamanoMaxFilas];
 			for ( int i = 0; i < tamanoActFilas; i++)
 			{
 				for (int j= 0; j<tamanoActColumnas;j++)
-					elementos[j][i] = copia[j][i];
+					elementos[j][i] = (T) copia[j][i];
 			} 
-			System.out.println("Arreglo columnas lleno: " + numeroColumna + " - Arreglo columnas duplicado: " + tamanoMaxColumnas);
+			System.out.println ("Arreglo columnas lleno: " + numeroColumna + " - Arreglo columnas duplicado: " + tamanoMaxColumnas);
 		}
 
 		elementos[numeroColumna][numeroFila] = (T)dato;

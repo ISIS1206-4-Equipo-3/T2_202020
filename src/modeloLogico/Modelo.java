@@ -14,8 +14,8 @@ public class Modelo {
 
 	public ArregloDinamico datos;
 
-	private final static String RUTA_DATOS_PRINCIPALES= "./data/large/AllMoviesCastingRaw.csv";
-	private final static String RUTA_DATOS_SECUNDARIOS= "./data/large/AllMoviesDetailsCleaned.csv";
+	private final static String RUTA_DATOS_PRINCIPALES= "./data/small/MoviesCastingRaw-small.csv";
+	private final static String RUTA_DATOS_SECUNDARIOS= "./data/small/SmallMoviesDetailsCleaned.csv";
 
 
 
