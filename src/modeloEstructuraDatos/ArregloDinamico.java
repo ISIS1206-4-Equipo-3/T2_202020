@@ -36,7 +36,7 @@ public class ArregloDinamico<T extends Comparable<T>>{
 	/**
 	 * Arreglo de elementos de tamaNo maximo
 	 */
-	private T [][] elementos;
+	private Object[][] elementos;
 
 	private int tamanoActColumnas;
 	private int tamanoMaxColumnas;
@@ -47,7 +47,8 @@ public class ArregloDinamico<T extends Comparable<T>>{
 	 */
 	public ArregloDinamico( int maxColumnas, int maxFilas)
 	{
-		elementos = (T[][])new Object[maxColumnas][maxFilas];
+		Object[][] ts = new Object[maxColumnas][maxFilas];
+		elementos = ts;
 		tamanoMaxFilas = maxFilas;
 		tamanoMaxColumnas = maxColumnas;
 		tamanoActFilas = 0;
@@ -61,7 +62,7 @@ public class ArregloDinamico<T extends Comparable<T>>{
 			tamanoMaxFilas = 2 * tamanoMaxFilas;
 			Object [][] copia = elementos;
 			elementos = null;
-			elementos = (T[][]) new Object[tamanoMaxColumnas][tamanoMaxFilas];
+			elementos = new Object[tamanoMaxColumnas][tamanoMaxFilas];
 			for ( int i = 0; i < tamanoActFilas; i++)
 			{
 				for (int j= 0; j<tamanoActColumnas;j++)
@@ -74,7 +75,7 @@ public class ArregloDinamico<T extends Comparable<T>>{
 			tamanoMaxColumnas = 2 * tamanoMaxColumnas;
 			Object [][] copia = elementos;
 			elementos = null;
-			elementos = (T[][]) new Object[tamanoMaxColumnas][tamanoMaxFilas];
+			elementos = new Object[tamanoMaxColumnas][tamanoMaxFilas];
 			for ( int i = 0; i < tamanoActFilas; i++)
 			{
 				for (int j= 0; j<tamanoActColumnas;j++)
