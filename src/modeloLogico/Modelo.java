@@ -9,13 +9,20 @@ import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 
 import modeloEstructuraDatos.ArregloDinamico;
+import modeloEstructuraDatos.ListaEncadenada;
 
 public class Modelo {
 
 	public ArregloDinamico datos;
-
-	private final static String RUTA_DATOS_PRINCIPALES= "./data/small/MoviesCastingRaw-small.csv";
-	private final static String RUTA_DATOS_SECUNDARIOS= "./data/small/SmallMoviesDetailsCleaned.csv";
+	public ListaEncadenada datosEncadenados;
+	
+	
+	public String RUTA_DATOS_PRINCIPALES= "./data/small/MoviesCastingRaw-small.csv";
+	public String RUTA_DATOS_SECUNDARIOS= "./data/small/SmallMoviesDetailsCleaned.csv";
+	
+	public final static int NUMERO_OPCION_DE_CARGA_LISTAENCADENADA = 1;
+	public final static int NUMERO_OPCION_DE_CARGA_ARREGLODINAMICO = 2;
+	
 
 	private final static int COLUMNA_DIRECTORES = 12;
 	private final static int COLUMNA_CALIFICACIONES = 35;
@@ -36,10 +43,19 @@ public class Modelo {
 	private FileReader archivoSecundario;
 	private CSVReader lectorSecundario;
 
-
-	public Modelo () {
-		datos = new ArregloDinamico(1,1);
-		cargarDatos(RUTA_DATOS_PRINCIPALES, RUTA_DATOS_SECUNDARIOS);
+	public Modelo() {
+		
+	}
+	
+	public void CargarModelo (int opcionDeCarga) {
+		if(opcionDeCarga==NUMERO_OPCION_DE_CARGA_ARREGLODINAMICO) {
+			datos = new ArregloDinamico(1,1);
+			cargarDatos(RUTA_DATOS_PRINCIPALES, RUTA_DATOS_SECUNDARIOS);
+		}
+		if(opcionDeCarga==NUMERO_OPCION_DE_CARGA_LISTAENCADENADA) {
+			datosEncadenados = new ListaEncadenada();
+			cargarDatosEncadenados(RUTA_DATOS_PRINCIPALES, RUTA_DATOS_SECUNDARIOS);
+		}
 	}
 
 	public String darPeliculasDeUnDirector(String pNombre) {
@@ -101,7 +117,6 @@ public class Modelo {
 			//Se inicia la carga de datos del archivo principal
 			int cantidadFilas = 0;
 			nextline = lectorPrincipal.readNext();
-			System.out.println(Arrays.toString(nextline));
 			while((nextline = lectorPrincipal.readNext())!=null) {
 				if(nextline != null) {
 					String[] temp = nextline;
@@ -118,7 +133,7 @@ public class Modelo {
 			}
 			System.out.println("Cantidad de columnas en primer archivo: " + datos.darTamanoColumnas());
 			System.out.println("Cantidad de filas en primer archivo: " + datos.darTamanoFilas());
-
+			System.out.println("Porfavor espere...");
 			//Carga de archivos principal finalizada, inicia carga de archivos secundarios.
 			int inicioColumnaDeCarga = datos.darTamanoColumnas()-1;
 			nextline = lectorSecundario.readNext();
@@ -148,13 +163,18 @@ public class Modelo {
 					filaAInsertar++;
 				}
 			}
-			System.out.println("Cantidad de columnas en segundo archivo: " + datos.darTamanoColumnas());
-			System.out.println("Cantidad de filas en segundo archivo: " + datos.darTamanoFilas());
+			System.out.println("Cantidad de columnas en total: " + datos.darTamanoColumnas());
+			System.out.println("Cantidad de filas en total: " + datos.darTamanoFilas());
 			System.out.println("-------- "+datos.darTamanoColumnas()*datos.darTamanoFilas() + " DATOS CARGADOS CORRECTAMENTE --------\n \n");
 
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public String buscarPeoresPeliculas() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 
