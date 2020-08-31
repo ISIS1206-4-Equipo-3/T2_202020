@@ -15,12 +15,12 @@ public interface ILista <T extends Comparable<T>> {
 	
 	
 	/**
-	 * Agrega un elemento en la posición pos si la posición es 
-	 * una posición válida. Los elementos que estén a partir de la 
-	 * posición dada deben correrse una posición a la derecha. 
-	 * Las posiciones válidas son posiciones donde ya hay un elemento en 
-	 * la lista. La posición del primer elemento es 1, la del segundo es 2 y 
-	 * así sucesivamente.
+	 * Agrega un elemento en la posicion pos si la posicion es 
+	 * una posicion valida. Los elementos que estan a partir de la 
+	 * posicion dada deben correrse una posicion a la derecha. 
+	 * Las posiciones validas son posiciones donde ya hay un elemento en 
+	 * la lista. La posicion del primer elemento es 1, la del segundo es 2 y 
+	 * asi sucesivamente.
 	 */
 	public void insertElement(T element, int pos);
 	
