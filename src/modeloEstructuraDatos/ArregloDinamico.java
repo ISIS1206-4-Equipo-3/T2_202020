@@ -36,7 +36,7 @@ public class ArregloDinamico<T extends Comparable<T>>{
 	/**
 	 * Arreglo de elementos de tamaNo maximo
 	 */
-	private T [][]elementos;
+	private T [][] elementos;
 
 	private int tamanoActColumnas;
 	private int tamanoMaxColumnas;
