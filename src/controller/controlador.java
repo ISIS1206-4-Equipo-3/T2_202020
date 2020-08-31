@@ -29,12 +29,11 @@ public class controlador {
 		{
 			view.printMenu();
 			boolean acabarOpcion1 = false;
-			boolean acabarOpcion2 = false;
 			int opcion = Integer.parseInt(lectura.nextLine());
 			switch(opcion) {
 
 			case 2:
-				view.printMessage("------------ Cargando información con Arreglo Dinamico ------------ \n");
+				view.printMessage("-------- Cargando información con Arreglo Dinamico -------- \n");
 				modelo.CargarModelo(modelo.NUMERO_OPCION_DE_CARGA_ARREGLODINAMICO);
 				while (!acabarOpcion1) {
 					view.printMenuOpcion2();
@@ -62,7 +61,7 @@ public class controlador {
 				}
 				break;
 			case 1:
-				view.printMessage("------------ Cargando información con Arreglo Dinamico ------------ \n");
+				view.printMessage("-------- Cargando información con Lista Encadenada -------- \n");
 				modelo.CargarModelo(modelo.NUMERO_OPCION_DE_CARGA_LISTAENCADENADA);
 				while (!acabarOpcion1) {
 					view.printMenuOpcion1();
