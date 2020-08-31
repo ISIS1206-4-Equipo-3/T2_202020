@@ -56,8 +56,7 @@ public class ArregloDinamico<T extends Comparable<T>>{
 			{
 				for (int j= 0; j<tamanoActColumnas;j++)
 					elementos[j][i] = (T)copia[j][i];
-			} 
-			System.out.println("Arreglo filas lleno: " + numeroFila + " - Arreglo filas duplicado: " + tamanoMaxFilas);
+			}
 		}
 		if ( tamanoMaxColumnas<=numeroColumna )
 		{  // caso de arreglo lleno (aumentar tamaNo)
@@ -69,8 +68,7 @@ public class ArregloDinamico<T extends Comparable<T>>{
 			{
 				for (int j= 0; j<tamanoActColumnas;j++)
 					elementos[j][i] = (T) copia[j][i];
-			} 
-			System.out.println ("Arreglo columnas lleno: " + numeroColumna + " - Arreglo columnas duplicado: " + tamanoMaxColumnas);
+			}
 		}
 
 		elementos[numeroColumna][numeroFila] = (T)dato;
