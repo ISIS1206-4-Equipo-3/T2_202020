@@ -13,17 +13,6 @@ package modeloEstructuraDatos;
 
 public class ArregloDinamico<T extends Comparable<T>>{
 	
-	private final static int COLUMNA_DIRECTORES = 12;
-	private final static int COLUMNA_CALIFICACIONES = 35;
-	private final static int COLUMNA_ID = 0;	
-	private final static int COLUMNA_TITULO = 34 ;
-	private final static int COLUMNA_GENERO = 20;
-	private final static int COLUMNA_RELEASE_DATE = 28 ;
-	private final static int COLUMNA_ACTOR_1 = 1 ;
-	private final static int COLUMNA_ACTOR_2 = 3 ;
-	private final static int COLUMNA_ACTOR_3 = 5 ;
-	private final static int COLUMNA_ACTOR_4 = 7 ;
-	private final static int COLUMNA_ACTOR_5 = 9 ;
 	
 	/**
 	 * Capacidad maxima del arreglo
@@ -156,43 +145,6 @@ public class ArregloDinamico<T extends Comparable<T>>{
 	
 	public Object darElementoEn (int numColumna, int numFila) {
 		return elementos[numColumna][numFila];
-	}
-	
-	public String darBuenasPeliculasDeUnDirector(String pNombre) {
-		String rta = null;
-		boolean existeDirector = false;
-		int contadorBuenasPeliculas=0;
-		String datos = "";
-		String actores = "";
-		double sumatoriaCalificaciones=0;
-		for(int i=0; i<tamanoActFilas;i++) {
-			if(pNombre.equals(elementos[COLUMNA_DIRECTORES][i])) 
-			{				
-				if(Double.parseDouble((String)elementos[COLUMNA_CALIFICACIONES][i])>=6.0) 
-				{
-					actores = "";
-					for(int g = 1; g<10; g= g+2)
-					{
-						if(!elementos[g][i].equals("none"))
-						{
-							actores += elementos[g][i] + ", ";
-						}
-					}
-					++contadorBuenasPeliculas;
-					datos +="\n Pelicula " + contadorBuenasPeliculas + "\n >ID: " + elementos[COLUMNA_ID][i] + "\n >Titulo: " + elementos[COLUMNA_TITULO][i] + "\n >Genero(s): " + elementos[COLUMNA_GENERO][i] + 
-							"\n >Fecha de lanzamiento: " + elementos[COLUMNA_RELEASE_DATE][i] + "\n >Actores: " + actores + "\n";
-					sumatoriaCalificaciones+=Double.parseDouble((String)elementos[COLUMNA_CALIFICACIONES][i]);
-
-				}
-			existeDirector=true;
-			}
-		} 
-		double promediodeVotacion = 0;
-		if(contadorBuenasPeliculas!=0)promediodeVotacion =(double) sumatoriaCalificaciones/contadorBuenasPeliculas;
-		if(existeDirector) rta = "El director "+pNombre+" tiene "+ contadorBuenasPeliculas+" peliculas buenas o\n" + 
-				"con votacion positiva.\n" + "El promedio de votacion de estas peliculas es de " + promediodeVotacion + "\n Datos sobre buenas peliculas: \n"
-				+ datos;
-		return rta;
 	}
 
 }
