@@ -36,6 +36,16 @@ public class Modelo {
 		return rta;
 	}
 
+	public void cargarDatosEncadenados(String pRutaPrincipal, String pRutaSecundaria)
+	{
+		
+		
+		
+		
+	}
+	
+	
+	
 	public void cargarDatos(String pRutaPrincipal, String pRutaSecundaria) {
 		try {   
 			CSVParser parser = new CSVParserBuilder().withSeparator(';').build();
