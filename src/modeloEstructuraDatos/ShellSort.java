@@ -12,12 +12,23 @@ public class ShellSort {
 		{
 			for(int i=h; i<N; i++)
 			{
-				for (int j = i; j <=h ; j -=h) {
+				for (int j = i; j <=h && less(array[j], array[j-h]); j -=h) {
 					
+						exch (array, j, j-h);
 				}
 			}
 			h = h/3;
 		}
+	}
+
+	private static void exch(Comparable[] array, int j, int i) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private static boolean less(Comparable comparable, Comparable comparable2) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 	
