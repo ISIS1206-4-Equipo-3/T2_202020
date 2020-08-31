@@ -21,14 +21,17 @@ public class ShellSort {
 		}
 	}
 
-	private static void exch(Comparable[] array, int j, int i) {
-		// TODO Auto-generated method stub
+	private static void exch(Comparable[] array, int i, int j) {
+		
+		Comparable temporal = array[i];
+		array[i] = array[j];
+		array[j] = temporal;
 		
 	}
 
-	private static boolean less(Comparable comparable, Comparable comparable2) {
-		// TODO Auto-generated method stub
-		return false;
+	private static boolean less(Comparable z, Comparable x) {
+	
+		return z.compareTo(x) < 0 ;
 	}
 	
 	
