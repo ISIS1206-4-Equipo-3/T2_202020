@@ -69,6 +69,7 @@ public class ArregloDinamico<T extends Comparable<T>>{
 				for (int j= 0; j<tamanoActColumnas;j++)
 					elementos[j][i] = (T) copia[j][i];
 			}
+			
 		}
 
 		elementos[numeroColumna][numeroFila] = (T)dato;

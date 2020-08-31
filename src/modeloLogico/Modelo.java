@@ -98,9 +98,6 @@ public class Modelo {
 	public void cargarDatosEncadenados(String pRutaPrincipal, String pRutaSecundaria)
 	{
 		
-		
-		
-		
 	}
 	
 	
