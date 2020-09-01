@@ -111,10 +111,10 @@ public class ArregloDinamico<T extends Comparable<T>>{
 		return datoR;
 	}
 	
-	private String buscarContieneColumna(String dato, int pColumna) {
+	private String buscarContieneColumna(T dato, int pColumna) {
 		String datoR = "";
 		for (int i = 0; i < tamanoActFilas; i++) {
-			if(elementos[pColumna][i].toString().contains(dato))
+			if(elementos[pColumna][i].toString().contains((CharSequence) dato))
 			{
 				datoR += elementos[pColumna][i] + "/n";
 			}
@@ -124,10 +124,10 @@ public class ArregloDinamico<T extends Comparable<T>>{
 		return datoR;
 	}
 	
-	private String buscarContieneFila(String dato, int pFila) {
+	private String buscarContieneFila(T dato, int pFila) {
 		String datoR = "";
 		for (int i = 0; i < tamanoActColumnas; i++) {
-			if(elementos[i][pFila].toString().contains(dato))
+			if(elementos[i][pFila].toString().contains((CharSequence) dato))
 			{
 				datoR += elementos[i][pFila] + "\n";
 			}
