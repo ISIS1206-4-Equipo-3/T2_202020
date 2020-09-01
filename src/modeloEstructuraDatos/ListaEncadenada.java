@@ -16,7 +16,7 @@ public class ListaEncadenada <T extends Comparable<T>> implements ILista<T> {
 
 	@Override
 	public void addFirst(T element) {
-		// TODO Auto-generated method stub
+		
 		if(primerElemento == null) primerElemento = new Nodo<T>(element);
 		else {
 			Nodo<T> nuevoPrimero = new Nodo<T> (element);
@@ -27,7 +27,7 @@ public class ListaEncadenada <T extends Comparable<T>> implements ILista<T> {
 
 	@Override
 	public void addLast(T element) {
-		// TODO Auto-generated method stub
+		
 		if(primerElemento !=null) {
 			Nodo<T> act = primerElemento;
 			while (act.tieneSiguiente()) {
@@ -57,7 +57,7 @@ public class ListaEncadenada <T extends Comparable<T>> implements ILista<T> {
 
 	@Override
 	public T removeFirst() {
-		// TODO Auto-generated method stub
+		
 		if (primerElemento!=null) {
 			Nodo <T> elementoEliminado = primerElemento;
 			primerElemento = primerElemento.darSiguiente();
@@ -81,7 +81,7 @@ public class ListaEncadenada <T extends Comparable<T>> implements ILista<T> {
 				return act.darDato();
 			}
 		}else {return null;}
-		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
@@ -115,7 +115,7 @@ public class ListaEncadenada <T extends Comparable<T>> implements ILista<T> {
 
 	@Override
 	public T firstElement() {
-		// TODO Auto-generated method stub
+		
 		if (primerElemento!=null) return primerElemento.darDato();
 		else {return null;}
 	}
@@ -127,12 +127,12 @@ public class ListaEncadenada <T extends Comparable<T>> implements ILista<T> {
 			while(act.tieneSiguiente()) act = act.darSiguiente();
 			return act.darDato();
 		}else {return null;}
-		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	public T getElement(int pos) {
-		// TODO Auto-generated method stub
+		
 		Nodo <T> act = primerElemento;
 		for(int i=1; i<pos && act!=null;i++) {
 			act = act.darSiguiente();
@@ -158,7 +158,7 @@ public class ListaEncadenada <T extends Comparable<T>> implements ILista<T> {
 	public boolean isEmpty() {
 		if(primerElemento == null) return true;
 		else {return false;}
-		// TODO Auto-generated method stub
+		
 		
 	}
 
@@ -180,7 +180,7 @@ public class ListaEncadenada <T extends Comparable<T>> implements ILista<T> {
 
 	@Override
 	public void exchange(int pos1, int pos2) {
-		// TODO Auto-generated method stub
+		
 		Nodo <T> nodo1 = darNodo(pos1);
 		Nodo <T> nodo2 = darNodo(pos2);
 		T datoNodo1 = nodo1.darDato();
@@ -194,7 +194,7 @@ public class ListaEncadenada <T extends Comparable<T>> implements ILista<T> {
 	}
 	
 	private Nodo<T> darNodo(int pos) {
-		// TODO Auto-generated method stub
+		
 		Nodo <T> act = primerElemento;
 		for(int i=1; i<pos && act!=null;i++) {
 			act = act.darSiguiente();
