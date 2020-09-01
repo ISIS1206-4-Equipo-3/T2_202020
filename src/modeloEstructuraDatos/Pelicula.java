@@ -1,5 +1,7 @@
 package modeloEstructuraDatos;
 
+import org.hamcrest.core.SubstringMatcher;
+
 public class Pelicula implements Comparable<Pelicula> {
 
 	private int id;	
@@ -31,7 +33,7 @@ public class Pelicula implements Comparable<Pelicula> {
 			actores[3] = actor4;
 		if(!actor5.equals("none"))
 			actores[4] = actor5;
-		genero = pGenero.split("|");
+		genero = pGenero.split("\\|");
 	}
 	
 	
@@ -156,6 +158,24 @@ public class Pelicula implements Comparable<Pelicula> {
 
 	public void setGenero(String[] genero) {
 		this.genero = genero;
+	}
+	
+	public void imprimirPelicula() {
+		System.out.println("ID # "+id);
+		System.out.println("Director: "+NombreDirector);
+		System.out.println("Numero de votos: "+ vote_count);
+		System.out.println("Promedio de votos: "+ vote_average);
+		String actoresEnString = "";
+		for (String actor : actores) {
+			if(actor!=null) actoresEnString+=actor + ", ";
+		}
+		if(!actoresEnString.isEmpty()) System.out.println("Actor(es): "+ actoresEnString.substring(0,(actoresEnString.length()-2)));
+		String generoEnString = "";
+		for (String gen : genero) {
+			if(gen!=null) generoEnString+=gen + ", ";
+		}
+		System.out.println("Genero(s): "+ generoEnString.substring(0, (generoEnString.length()-2)) + "\n");
+		
 	}
 	
 	

@@ -42,7 +42,7 @@ public class View {
 	}
 
 	public void printMenuOpcion1() {
-		System.out.println("1. Buscar las 20 peliculas con peores promedio de votacion.");
+		System.out.println("1. Imprimir todas las peliculas de la lista encadenada");
 		System.out.println("2. <--- REGRESAR");
 	}
 	
@@ -59,5 +59,6 @@ public class View {
 		System.out.println("\n1. Cargar datos de peliculas pequenos.");
 		System.out.println("2. Cargar datos de peliculas grandes.");
 	}
+	
 	
 }

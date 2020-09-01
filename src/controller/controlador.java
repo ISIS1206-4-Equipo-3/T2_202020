@@ -72,10 +72,8 @@ public class controlador {
 					switch(opcionDos) {
 
 					case 1:
-						view.printMessage(" \n Buscando 20 peores peliculas... \n");
-						String peoresPeliculas = "";
-						peoresPeliculas+= modelo.buscarPeoresPeliculas();
-						view.printMessage(peoresPeliculas);
+						view.printMessage(" \n Imprimiendo información de las peliculas... \n");
+						modelo.imprimirTodasLasPeliculas();
 						break;
 					case 2: 
 						acabarOpcion1 =true;

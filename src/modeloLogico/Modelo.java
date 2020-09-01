@@ -1,5 +1,6 @@
 package modeloLogico;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.Arrays;
 
@@ -10,12 +11,13 @@ import com.opencsv.CSVReaderBuilder;
 
 import modeloEstructuraDatos.ArregloDinamico;
 import modeloEstructuraDatos.ListaEncadenada;
+import modeloEstructuraDatos.Pelicula;
 import modeloEstructuraDatos.ShellSort;
 
 public class Modelo {
 
 	public ArregloDinamico datos;
-	public ListaEncadenada datosEncadenados;
+	public ListaEncadenada<Pelicula> datosEncadenados;
 	
 	
 	public String RUTA_DATOS_PRINCIPALES= "./data/small/MoviesCastingRaw-small.csv";
@@ -100,6 +102,44 @@ public class Modelo {
 
 	public void cargarDatosEncadenados(String pRutaPrincipal, String pRutaSecundaria)
 	{
+		try {
+			datosEncadenados = new ListaEncadenada<>();
+			CSVParser parser = new CSVParserBuilder().withSeparator(';').build();
+			archivoPrincipal = new FileReader(pRutaPrincipal);
+			archivoSecundario = new FileReader(pRutaSecundaria);
+			lectorSecundario = new CSVReaderBuilder(archivoSecundario).withCSVParser(parser).build();
+			lectorPrincipal = new CSVReaderBuilder (archivoPrincipal).withCSVParser(parser).build();
+			String [] lineaPrincipal = lectorPrincipal.readNext();;
+			String [] lineaSecundaria = lectorSecundario.readNext();
+			int contador = 0;
+			while(((lineaPrincipal = lectorPrincipal.readNext())!=null) && ((lineaSecundaria = lectorSecundario.readNext())!=null)){
+				if(lineaPrincipal != null && lineaSecundaria != null) {
+					int id = Integer.parseInt(lineaPrincipal[0]);
+					int numVotos = Integer.parseInt(lineaSecundaria[18]);
+					double promedioVotos = Double.parseDouble(lineaSecundaria[17]);
+					String director = lineaPrincipal[COLUMNA_DIRECTORES];
+					String actor1 = lineaPrincipal[COLUMNA_ACTOR_1];
+					String actor2 = lineaPrincipal[COLUMNA_ACTOR_2];
+					String actor3 = lineaPrincipal[COLUMNA_ACTOR_3];
+					String actor4 = lineaPrincipal[COLUMNA_ACTOR_4];
+					String actor5 = lineaPrincipal[COLUMNA_ACTOR_5];
+					String genero = lineaSecundaria[2];
+					Pelicula aAñadir = new Pelicula(id, director, numVotos, promedioVotos, actor1, actor2, actor3, actor4, actor5, genero);
+					datosEncadenados.addFirst(aAñadir);
+					contador++;
+				}
+			}
+			System.out.println("Primera pelicula");
+			datosEncadenados.lastElement().imprimirPelicula();
+			System.out.println("Ultima pelicula");
+			datosEncadenados.firstElement().imprimirPelicula();
+			System.out.println("-------- Los datos fueron cargados correctamente ("+contador+" peliculas) --------\n");
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		
 	}
 	
@@ -183,6 +223,15 @@ public class Modelo {
 		sort.sort(arreglo);
 		return null;
 	}
-
+	
+	public void imprimirTodasLasPeliculas() {
+		int posicionElemento = datosEncadenados.size();
+		Pelicula act = datosEncadenados.getElement(posicionElemento);
+		while(posicionElemento>0) {
+			posicionElemento--;
+			act.imprimirPelicula();
+			act = datosEncadenados.getElement(posicionElemento);
+		}
+	}
 
 }
