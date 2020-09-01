@@ -49,7 +49,7 @@ public class View {
 	public void printInformacionDeCreadores(){
 		System.out.println("\nCreado por:");
 		System.out.println("Alejandro Alcaraz 201921767");
-		System.out.println("Alejandro Ahogado ");
+		System.out.println("Alejandro Ahogado 201920701");
 		System.out.println("Santiago Triana 201923265");
 		System.out.println("Universidad de los Andes - Bogota, Colombia");
 		System.out.println("Estructuras de Datos 202020_ISIS_1206_04 \n");
