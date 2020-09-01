@@ -43,15 +43,16 @@ public class ArregloDinamico<T extends Comparable<T>>{
 		tamanoActFilas = 0;
 		tamanoActColumnas = 0;
 	}
-	public Comparable[] copiarMatriz(int posId, int posDirector, int posNumVotos, int posPromedioVotos,  int posActor1, int posActor2,
+	public Comparable[] copiarMatriz(int posLanzamiento, int posTitulo, int posId, int posDirector, int posNumVotos, int posPromedioVotos,  int posActor1, int posActor2,
 			int posActor3, int posActor4, int posActor5, int posGenero)
 	{		
 		if(tamanoActFilas != 0) {
 		Pelicula peli;
 		arregloTemporal = new Comparable[tamanoActFilas];
-		for(int i=0; i<elementos.length; i++)
+		for(int i=0; i<tamanoActFilas; i++)
 		{
-			peli = new Pelicula((int)elementos[posId][i], (String)elementos[posDirector][i], (int)elementos[posNumVotos][i], Double.parseDouble((String)elementos[posPromedioVotos][i]),
+			peli = new Pelicula(elementos[posLanzamiento][i].toString(),elementos[posTitulo][i].toString(), Integer.parseInt(elementos[posId][i].toString().trim()),(String)elementos[posDirector][i],
+			Integer.parseInt(elementos[posNumVotos][i].toString()), Double.parseDouble((String)elementos[posPromedioVotos][i]),
 			(String)elementos[posActor1][i], (String)elementos[posActor2][i], (String)elementos[posActor3][i], (String)elementos[posActor4][i], (String)elementos[posActor5][i],
 			(String)elementos[posGenero][i]); 
 			arregloTemporal[i] = peli;

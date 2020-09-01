@@ -33,13 +33,19 @@ public class controlador {
 			switch(opcion) {
 
 			case 2:
-				view.printMessage("-------- Cargando información con Arreglo Dinamico -------- \n");
+				view.printMessage("-------- Cargando informacion con Arreglo Dinamico -------- \n");
 				modelo.CargarModelo(modelo.NUMERO_OPCION_DE_CARGA_ARREGLODINAMICO);
 				int centinela = 0;
 				while (!acabarOpcion1) {
+					if (centinela==0) 
+					{
+						modelo.copiarMatriz();
+						modelo.imprimirPeliculaArregloDinamico();
+						centinela++;
+					}
+					
 					view.printMenuOpcion2();
-					if (centinela==0) modelo.copiarMatriz();
-					centinela++;
+					
 					int opcionDos = Integer.parseInt(lectura.nextLine());
 					switch(opcionDos) {
 
@@ -64,7 +70,7 @@ public class controlador {
 				}
 				break;
 			case 1:
-				view.printMessage("-------- Cargando información con Lista Encadenada -------- \n");
+				view.printMessage("-------- Cargando informacion con Lista Encadenada -------- \n");
 				modelo.CargarModelo(modelo.NUMERO_OPCION_DE_CARGA_LISTAENCADENADA);
 				while (!acabarOpcion1) {
 					view.printMenuOpcion1();
@@ -82,7 +88,8 @@ public class controlador {
 				}
 				break;
 			case 3:
-				view.printMessage("Opcion 3 seleccionada");
+				view.printMessage("Buscando peliculas con peor promedio de votacion");
+				modelo.buscarPeoresPeliculas();
 				break;
 			case 4:
 				view.printInformacionDeCreadores();

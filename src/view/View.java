@@ -13,7 +13,7 @@ public class View {
 	{
 		System.out.println("1. Cargar los datos con lista encadenada");
 		System.out.println("2. Cargar los datos con Arreglo Dinamico");
-		System.out.println("3. opcion 3");
+		System.out.println("3. Encontrar peliculas con peor promedio de votacion");
 		System.out.println("4. Informacion de creadores");
 		System.out.println("5. Cambiar datos a cargar");
 		System.out.println("6. Exit");

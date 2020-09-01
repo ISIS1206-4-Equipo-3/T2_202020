@@ -3,6 +3,10 @@ package modeloEstructuraDatos;
 import org.hamcrest.core.SubstringMatcher;
 
 public class Pelicula implements Comparable<Pelicula> {
+	
+	private String lanzamiento;
+	
+	private String titulo;
 
 	private int id;	
 	
@@ -16,8 +20,10 @@ public class Pelicula implements Comparable<Pelicula> {
 
 	private String[] genero;
 	
-	public Pelicula(int pId, String director, int numVotos, double promedioVotos,  String actor1, String actor2, String actor3, String actor4, String actor5, String pGenero )
+	public Pelicula(String pLanzamiento, String pTitulo, int pId, String director, int numVotos, double promedioVotos,  String actor1, String actor2, String actor3, String actor4, String actor5, String pGenero )
 	{
+		lanzamiento = pLanzamiento;
+		titulo = pTitulo;
 		id = pId;
 		NombreDirector = director;
 		vote_count = numVotos;
@@ -50,6 +56,42 @@ public class Pelicula implements Comparable<Pelicula> {
 			return 1;
 		else
 			return 0;
+	}
+
+
+
+
+
+
+	public String getLanzamiento() {
+		return lanzamiento;
+	}
+
+
+
+
+
+
+	public void setLanzamiento(String lanzamiento) {
+		this.lanzamiento = lanzamiento;
+	}
+
+
+
+
+
+
+	public String getTitulo() {
+		return titulo;
+	}
+
+
+
+
+
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
 	}
 
 
@@ -162,19 +204,29 @@ public class Pelicula implements Comparable<Pelicula> {
 	
 	public void imprimirPelicula() {
 		System.out.println("ID # "+id);
-		System.out.println("Director: "+NombreDirector);
-		System.out.println("Numero de votos: "+ vote_count);
 		System.out.println("Promedio de votos: "+ vote_average);
-		String actoresEnString = "";
-		for (String actor : actores) {
-			if(actor!=null) actoresEnString+=actor + ", ";
-		}
-		if(!actoresEnString.isEmpty()) System.out.println("Actor(es): "+ actoresEnString.substring(0,(actoresEnString.length()-2)));
+		System.out.println("Titulo: "+titulo);
 		String generoEnString = "";
 		for (String gen : genero) {
 			if(gen!=null) generoEnString+=gen + ", ";
 		}
-		System.out.println("Genero(s): "+ generoEnString.substring(0, (generoEnString.length()-2)) + "\n");
+		System.out.println("Genero(s): "+ generoEnString.substring(0, (generoEnString.length()-2)) );
+		System.out.println("Lanzamiento: " + lanzamiento);
+		String actoresEnString = "";
+		for (String actor : actores) {
+			if(actor!=null) actoresEnString+=actor + ", ";
+		}
+		if(!actoresEnString.isEmpty()) 
+		{
+			System.out.println("Actor(es): "+ actoresEnString.substring(0,(actoresEnString.length()-2)));
+		}
+		else
+			System.out.println("Actor(es): ninguno");
+		System.out.println("Director: "+NombreDirector);
+		System.out.println("Numero de votos: "+ vote_count + "\n");
+		
+		
+		
 		
 	}
 	

@@ -44,7 +44,7 @@ public class Modelo {
 	private FileReader archivoPrincipal;
 	private CSVReader lectorPrincipal;
 	private Comparable[] arreglo;
-	private ShellSort sort;
+	//private ShellSort sort;
 	private FileReader archivoSecundario;
 	private CSVReader lectorSecundario;
 
@@ -103,6 +103,7 @@ public class Modelo {
 	public void cargarDatosEncadenados(String pRutaPrincipal, String pRutaSecundaria)
 	{
 		try {
+			long startTime = System.nanoTime();
 			datosEncadenados = new ListaEncadenada<>();
 			CSVParser parser = new CSVParserBuilder().withSeparator(';').build();
 			archivoPrincipal = new FileReader(pRutaPrincipal);
@@ -117,6 +118,7 @@ public class Modelo {
 					int id = Integer.parseInt(lineaPrincipal[0]);
 					int numVotos = Integer.parseInt(lineaSecundaria[18]);
 					double promedioVotos = Double.parseDouble(lineaSecundaria[17]);
+					
 					String director = lineaPrincipal[COLUMNA_DIRECTORES];
 					String actor1 = lineaPrincipal[COLUMNA_ACTOR_1];
 					String actor2 = lineaPrincipal[COLUMNA_ACTOR_2];
@@ -124,16 +126,21 @@ public class Modelo {
 					String actor4 = lineaPrincipal[COLUMNA_ACTOR_4];
 					String actor5 = lineaPrincipal[COLUMNA_ACTOR_5];
 					String genero = lineaSecundaria[2];
-					Pelicula anadir = new Pelicula(id, director, numVotos, promedioVotos, actor1, actor2, actor3, actor4, actor5, genero);
+					String titulo = lineaSecundaria[16];
+					String lanzamiento = lineaSecundaria[10];
+					Pelicula anadir = new Pelicula(lanzamiento, titulo, id, director, numVotos, promedioVotos, actor1, actor2, actor3, actor4, actor5, genero);
 					datosEncadenados.addFirst(anadir);
 					contador++;
 				}
 			}
+			long endTime = System.nanoTime();
+			
 			System.out.println("Primera pelicula");
 			datosEncadenados.lastElement().imprimirPelicula();
 			System.out.println("Ultima pelicula");
 			datosEncadenados.firstElement().imprimirPelicula();
 			System.out.println("-------- Los datos fueron cargados correctamente ("+contador+" peliculas) --------\n");
+			System.out.println("Tiempo que tardó la carga de datos: " + (endTime-startTime)/1e6 + " ms \n\n");
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -146,7 +153,8 @@ public class Modelo {
 	
 	
 	public void cargarDatos(String pRutaPrincipal, String pRutaSecundaria) {
-		try {   
+		try {
+			long startTime = System.nanoTime();
 			CSVParser parser = new CSVParserBuilder().withSeparator(';').build();
 			archivoPrincipal = new FileReader(pRutaPrincipal);
 			archivoSecundario = new FileReader(pRutaSecundaria);
@@ -173,7 +181,7 @@ public class Modelo {
 			}
 			System.out.println("Cantidad de columnas en primer archivo: " + datos.darTamanoColumnas());
 			System.out.println("Cantidad de filas en primer archivo: " + datos.darTamanoFilas());
-			System.out.println("Porfavor espere...");
+			System.out.println("Por favor espere...");
 			//Carga de archivos principal finalizada, inicia carga de archivos secundarios.
 			int inicioColumnaDeCarga = datos.darTamanoColumnas()-1;
 			nextline = lectorSecundario.readNext();
@@ -203,25 +211,43 @@ public class Modelo {
 					filaAInsertar++;
 				}
 			}
+			long endTime = System.nanoTime();
 			System.out.println("Cantidad de columnas en total: " + datos.darTamanoColumnas());
 			System.out.println("Cantidad de filas en total: " + datos.darTamanoFilas());
-			System.out.println("-------- "+datos.darTamanoColumnas()*datos.darTamanoFilas() + " DATOS CARGADOS CORRECTAMENTE --------\n \n");
-
+			System.out.println("-------- "+datos.darTamanoColumnas()*datos.darTamanoFilas() + " DATOS CARGADOS CORRECTAMENTE --------\n ");
+			
+			
+			System.out.println("Tiempo que tardó la carga de datos: " + (endTime-startTime)/1e6 + " ms \n\n");
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
-     
+     public void imprimirPeliculaArregloDinamico() {
+    	 System.out.println("Primera pelicula");
+			((Pelicula)arreglo[0]).imprimirPelicula();
+			System.out.println("Ultima pelicula");
+			((Pelicula)arreglo[arreglo.length-1]).imprimirPelicula();
+			//System.out.println(arreglo.length);
+     }
 	public void copiarMatriz()
 	{
-		
-		arreglo = datos.copiarMatriz(COLUMNA_ID, COLUMNA_DIRECTORES, COLUMNA_NUM_CALIFICACIONES, COLUMNA_CALIFICACIONES, COLUMNA_ACTOR_1,
+		arreglo = datos.copiarMatriz(COLUMNA_RELEASE_DATE, COLUMNA_TITULO, COLUMNA_ID, COLUMNA_DIRECTORES, COLUMNA_NUM_CALIFICACIONES, COLUMNA_CALIFICACIONES, COLUMNA_ACTOR_1,
 				COLUMNA_ACTOR_2, COLUMNA_ACTOR_3, COLUMNA_ACTOR_4, COLUMNA_ACTOR_5, COLUMNA_GENERO);
+
 	}
 	
-	public String buscarPeoresPeliculas() {
-		sort.sort(arreglo);
-		return null;
+	public void buscarPeoresPeliculas() {
+		if(datos==null) {
+			System.out.println("\nNO SE HA CARGADO LA LISTA DE PELICULAS.\nPor favor seleccionar la opcion 2. cargar los datos con Arreglo Dinamico.");
+		}
+		else {
+		ShellSort.sort(arreglo);
+		for(int i =0; i<20; i++)
+		{
+			System.out.println("\n Peor pelicula # " + i );
+			((Pelicula)arreglo[i]).imprimirPelicula();
+		}
+		}
 	}
 	
 	public void imprimirTodasLasPeliculas() {
