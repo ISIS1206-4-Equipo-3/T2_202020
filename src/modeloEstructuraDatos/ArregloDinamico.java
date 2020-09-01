@@ -26,7 +26,7 @@ public class ArregloDinamico<T extends Comparable<T>>{
 	 * Arreglo de elementos de tamaNo maximo
 	 */
 	private Object[][] elementos;
-
+	private Object[] arregloTemporal;
 	private int tamanoActColumnas;
 	private int tamanoMaxColumnas;
 
@@ -42,6 +42,17 @@ public class ArregloDinamico<T extends Comparable<T>>{
 		tamanoMaxColumnas = maxColumnas;
 		tamanoActFilas = 0;
 		tamanoActColumnas = 0;
+	}
+	public void copiarMatriz()
+	{
+		Pelicula peli;
+		arregloTemporal = new Object[tamanoActFilas];
+		for(int i=0; i<elementos.length; i++)
+		{
+			peli = new Pelicula(elementos[0][i], director, numVotos, promedioVotos, actor1, actor2, actor3
+					, actor4, actor5, pGenero) 
+			arregloTemporal[i] = peli;
+		}
 	}
 
 	public void agregar( T dato, int numeroColumna, int numeroFila)
