@@ -168,7 +168,12 @@ public class Modelo {
 			e.printStackTrace();
 		}
 	}
-
+     
+	public void copiarMatriz()
+	{
+		datos.copiarMatriz();
+	}
+	
 	public String buscarPeoresPeliculas() {
 		// TODO Auto-generated method stub
 		return null;
