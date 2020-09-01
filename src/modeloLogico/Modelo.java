@@ -124,8 +124,8 @@ public class Modelo {
 					String actor4 = lineaPrincipal[COLUMNA_ACTOR_4];
 					String actor5 = lineaPrincipal[COLUMNA_ACTOR_5];
 					String genero = lineaSecundaria[2];
-					Pelicula aAñadir = new Pelicula(id, director, numVotos, promedioVotos, actor1, actor2, actor3, actor4, actor5, genero);
-					datosEncadenados.addFirst(aAñadir);
+					Pelicula anadir = new Pelicula(id, director, numVotos, promedioVotos, actor1, actor2, actor3, actor4, actor5, genero);
+					datosEncadenados.addFirst(anadir);
 					contador++;
 				}
 			}
