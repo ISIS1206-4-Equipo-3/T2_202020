@@ -35,8 +35,11 @@ public class controlador {
 			case 2:
 				view.printMessage("-------- Cargando información con Arreglo Dinamico -------- \n");
 				modelo.CargarModelo(modelo.NUMERO_OPCION_DE_CARGA_ARREGLODINAMICO);
+				int centinela = 0;
 				while (!acabarOpcion1) {
 					view.printMenuOpcion2();
+					if (centinela==0) modelo.copiarMatriz();
+					centinela++;
 					int opcionDos = Integer.parseInt(lectura.nextLine());
 					switch(opcionDos) {
 

@@ -54,7 +54,6 @@ public class Modelo {
 		if(opcionDeCarga==NUMERO_OPCION_DE_CARGA_ARREGLODINAMICO) {
 			datos = new ArregloDinamico(1,1);
 			cargarDatos(RUTA_DATOS_PRINCIPALES, RUTA_DATOS_SECUNDARIOS);
-			copiarMatriz();
 		}
 		if(opcionDeCarga==NUMERO_OPCION_DE_CARGA_LISTAENCADENADA) {
 			datosEncadenados = new ListaEncadenada();
