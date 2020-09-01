@@ -10,6 +10,7 @@ import com.opencsv.CSVReaderBuilder;
 
 import modeloEstructuraDatos.ArregloDinamico;
 import modeloEstructuraDatos.ListaEncadenada;
+import modeloEstructuraDatos.ShellSort;
 
 public class Modelo {
 
@@ -35,11 +36,13 @@ public class Modelo {
 	private final static int COLUMNA_ACTOR_3 = 5 ;
 	private final static int COLUMNA_ACTOR_4 = 7 ;
 	private final static int COLUMNA_ACTOR_5 = 9 ;
+	private final static int COLUMNA_NUM_CALIFICACIONES = 36; 
 
 
 	private FileReader archivoPrincipal;
 	private CSVReader lectorPrincipal;
-
+	private Comparable[] arreglo;
+	private ShellSort sort;
 	private FileReader archivoSecundario;
 	private CSVReader lectorSecundario;
 
@@ -51,6 +54,7 @@ public class Modelo {
 		if(opcionDeCarga==NUMERO_OPCION_DE_CARGA_ARREGLODINAMICO) {
 			datos = new ArregloDinamico(1,1);
 			cargarDatos(RUTA_DATOS_PRINCIPALES, RUTA_DATOS_SECUNDARIOS);
+			copiarMatriz();
 		}
 		if(opcionDeCarga==NUMERO_OPCION_DE_CARGA_LISTAENCADENADA) {
 			datosEncadenados = new ListaEncadenada();
@@ -171,11 +175,13 @@ public class Modelo {
      
 	public void copiarMatriz()
 	{
-		datos.copiarMatriz();
+		
+		arreglo = datos.copiarMatriz(COLUMNA_ID, COLUMNA_DIRECTORES, COLUMNA_NUM_CALIFICACIONES, COLUMNA_CALIFICACIONES, COLUMNA_ACTOR_1,
+				COLUMNA_ACTOR_2, COLUMNA_ACTOR_3, COLUMNA_ACTOR_4, COLUMNA_ACTOR_5, COLUMNA_GENERO);
 	}
 	
 	public String buscarPeoresPeliculas() {
-		// TODO Auto-generated method stub
+		sort.sort(arreglo);
 		return null;
 	}
 
