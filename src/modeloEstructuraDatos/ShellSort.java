@@ -12,7 +12,7 @@ public class ShellSort {
 		{
 			for(int i=h; i<N; i++)
 			{
-				for (int j = i; j <=h && less(array[j], array[j-h]); j -=h) {
+				for (int j = i; j >=h && less(array[j], array[j-h]); j -=h) {
 					
 						exch (array, j, j-h);
 				}
