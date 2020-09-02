@@ -15,6 +15,8 @@ public class ModeloTest {
 	public void setUp1()
 	{
 		modelo = new Modelo();
+		modelo.CargarModelo(modelo.NUMERO_OPCION_DE_CARGA_ARREGLODINAMICO);
+		
 	}
 	@Test
 	public void testModelo() {
@@ -27,6 +29,7 @@ public class ModeloTest {
 	public void testDarPeliculasDeUnDirector() {
 		setUp1();
 		assertNotNull(modelo.darPeliculasDeUnDirector("George Lucas"));
+		
 	}
 
 	@Test

@@ -23,6 +23,8 @@ public class ArregloDinamicoTest {
 	public void setUp2()
 	{
 		modelo = new Modelo();
+		modelo.CargarModelo(modelo.NUMERO_OPCION_DE_CARGA_ARREGLODINAMICO);
+		
 	}
 
 	@Test

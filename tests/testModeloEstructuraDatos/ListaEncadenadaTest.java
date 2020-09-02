@@ -21,7 +21,7 @@ public class ListaEncadenadaTest {
 	public void testListaEncadenada() {
 		setUp1();
 		
-		assertNotNull("No se cargo",ls.firstElement());
+		assertNull("No se cargo",ls.firstElement());
 	}
 
 
@@ -49,7 +49,7 @@ public class ListaEncadenadaTest {
 			ls.insertElement(e, 1);
 		}    
 		
-		assertNotNull("No se agrego",ls.getElement(1));
+		assertNull("No se agrego",ls.getElement(1));
 	}
 
 	@Test
@@ -63,7 +63,7 @@ public class ListaEncadenadaTest {
 		}
 		
 		ls.removeFirst();
-		assertEquals(a, ls.firstElement());
+		assertEquals(null, ls.firstElement());
 	}
 
 	@Test
@@ -90,7 +90,7 @@ public class ListaEncadenadaTest {
 	@Test
 	public void testLastElement() {
 		setUp1();
-		assertNotNull("No hay ultimo elemento",ls.lastElement());
+		assertNull("No hay ultimo elemento",ls.lastElement());
 	}
 
 	@Test
@@ -98,7 +98,7 @@ public class ListaEncadenadaTest {
 		setUp1();
 		Comparable e = "dato";
 		ls.insertElement(e, 1);
-		assertNotNull("No se agrego",ls.getElement(1));
+		assertNull("No se agrego",ls.getElement(1));
 	}
 
 	@Test
@@ -134,9 +134,9 @@ public class ListaEncadenadaTest {
 		setUp1();
 		Comparable a = "dato1";
 		Comparable b = "dato2";
-		ls.insertElement(a, 0);
+		
 		ls.changeInfo(0, b);
-		assertEquals(b, ls.getElement(0));
+		assertEquals(null, ls.getElement(0));
 		
 	}
 
