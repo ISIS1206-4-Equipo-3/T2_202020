@@ -48,12 +48,13 @@ public class ListaEncadenadaTest {
 	@Test 
 	public void testInsertElement() {
 		setUp1();
-		if (ls.size()>0) {
-			Comparable e = "dato";
-			ls.insertElement(e, 1);
-		}    
-		
-		assertNull("No se agrego",ls.getElement(1));
+		Comparable e = "dato";
+		Comparable a = "dato1";
+		Comparable b = "dato2";
+		ls.addFirst(a);
+		ls.addFirst(b);
+		ls.insertElement(e,1);
+		assertNotNull("No se agrego",ls.getElement(1));
 	}
 
 	@Test
@@ -75,9 +76,11 @@ public class ListaEncadenadaTest {
 		setUp1();
 		
 		Comparable e = "1";
+		Comparable a = "2";
 		ls.addFirst(e);
+		ls.addFirst(a);
 		ls.deleteElement(0);
-		assertNotEquals(null, ls.getElement(0));
+		assertEquals(1,ls.size());
 
 	}
 
@@ -99,15 +102,16 @@ public class ListaEncadenadaTest {
 	public void testGetElement() {
 		setUp1();
 		Comparable e = "dato";
-		ls.insertElement(e, 1);
-		assertNull("No se agrego",ls.getElement(1));
+		ls.addFirst(e);
+		assertNotNull("No se agrego",ls.getElement(0));
 	}
 
 	@Test
 	public void testSize() {
 		setUp1();
-		assertNotNull("No hay",ls.size());
-		
+		Comparable e = "dato";
+		ls.addFirst(e);
+		assertEquals(1,ls.size());
 	}
 
 	@Test
