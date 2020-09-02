@@ -51,11 +51,19 @@ public class ArregloDinamico<T extends Comparable<T>>{
 		arregloTemporal = new Comparable[tamanoActFilas];
 		for(int i=0; i<tamanoActFilas; i++)
 		{
+			try {
 			peli = new Pelicula(elementos[posLanzamiento][i].toString(),elementos[posTitulo][i].toString(), Integer.parseInt(elementos[posId][i].toString().trim()),(String)elementos[posDirector][i],
-			Integer.parseInt(elementos[posNumVotos][i].toString()), Double.parseDouble((String)elementos[posPromedioVotos][i]),
-			(String)elementos[posActor1][i], (String)elementos[posActor2][i], (String)elementos[posActor3][i], (String)elementos[posActor4][i], (String)elementos[posActor5][i],
-			(String)elementos[posGenero][i]); 
-			arregloTemporal[i] = peli;
+						Integer.parseInt(elementos[posNumVotos][i].toString()), Double.parseDouble((String)elementos[posPromedioVotos][i]),
+						(String)elementos[posActor1][i], (String)elementos[posActor2][i], (String)elementos[posActor3][i], (String)elementos[posActor4][i], (String)elementos[posActor5][i],
+						(String)elementos[posGenero][i]); 
+						arregloTemporal[i] = peli;
+			}catch(Exception e) {
+				if(e.getMessage().contains("Integer cannot be cast to class java.lang.String")){
+					System.out.println("++CAUTION: Existe un error en el formato del elemento con id #" +elementos[posId][i] + "\n      + En un espacio donde debería ir un nombre hay un numero.\n");
+				}else {
+					System.out.println("CAUTION: Existió un error desconocido cargando el dato con id #"+ elementos[posId][i]);
+				}
+			}
 		}
 	}
 		return arregloTemporal;
