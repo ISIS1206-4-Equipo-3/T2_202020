@@ -140,7 +140,7 @@ public class Modelo {
 			System.out.println("Ultima pelicula");
 			datosEncadenados.firstElement().imprimirPelicula();
 			System.out.println("-------- Los datos fueron cargados correctamente ("+contador+" peliculas) --------\n");
-			System.out.println("Tiempo que tardó la carga de datos: " + (endTime-startTime)/1e6 + " ms \n\n");
+			System.out.println("Tiempo que tardo la carga de datos: " + (endTime-startTime)/1e6 + " ms \n\n");
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -217,7 +217,7 @@ public class Modelo {
 			System.out.println("-------- "+datos.darTamanoColumnas()*datos.darTamanoFilas() + " DATOS CARGADOS CORRECTAMENTE --------\n ");
 			
 			
-			System.out.println("Tiempo que tardó la carga de datos: " + (endTime-startTime)/1e6 + " ms \n\n");
+			System.out.println("Tiempo que tardo la carga de datos: " + (endTime-startTime)/1e6 + " ms \n\n");
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -238,13 +238,14 @@ public class Modelo {
 	
 	public void buscarPeoresPeliculas() {
 		if(datos==null) {
-			System.out.println("\nNO SE HA CARGADO LA LISTA DE PELICULAS.\nPor favor seleccionar la opcion 2. cargar los datos con Arreglo Dinamico.");
+			System.out.println("\nNO SE HA CARGADO LA LISTA DE PELICULAS.\nPor favor seleccionar la opcion 2. (cargar los datos con Arreglo Dinamico) antes de seleccionar esta opcion\n");
 		}
 		else {
 		ShellSort.sort(arreglo);
 		for(int i =0; i<20; i++)
 		{
-			System.out.println("\n Peor pelicula # " + i );
+			int aImprimir = i+1;
+			System.out.println("\n-Peor pelicula # " + aImprimir );
 			((Pelicula)arreglo[i]).imprimirPelicula();
 		}
 		}
