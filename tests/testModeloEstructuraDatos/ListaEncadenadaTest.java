@@ -13,15 +13,18 @@ public class ListaEncadenadaTest {
 	private Modelo modelo;
 	
 	public void setUp1() {
-		ls= new ListaEncadenada<>();
+		ls= new ListaEncadenada();
 		modelo = new Modelo();
+		modelo.CargarModelo(modelo.NUMERO_OPCION_DE_CARGA_LISTAENCADENADA);
+		
+		
 	}
 	
 	@Test
 	public void testListaEncadenada() {
 		setUp1();
 		
-		assertNull("No se cargo",ls.firstElement());
+		assertNull("Primer elemento es null",ls.firstElement());
 	}
 
 
@@ -31,6 +34,7 @@ public class ListaEncadenadaTest {
 		Comparable e = "dato";
 		ls.addFirst(e);
 		assertNotNull("No se agrego",ls.firstElement());
+		
 	}
   
 	@Test
@@ -69,14 +73,12 @@ public class ListaEncadenadaTest {
 	@Test
 	public void testDeleteElement() {
 		setUp1();
-		Comparable e = "dato";
-		Comparable a = "dato1";
-		ls.insertElement(e, 0);
-		ls.insertElement(a, 1);
-		assertTrue(ls!=null);
-		assertTrue(ls.getElement(0)!=null);
+		
+		Comparable e = "1";
+		ls.addFirst(e);
 		ls.deleteElement(0);
-		assertEquals(a, ls.firstElement());
+		assertNotEquals(null, ls.getElement(0));
+
 	}
 
 	@Test
@@ -116,25 +118,25 @@ public class ListaEncadenadaTest {
 
 	@Test
 	public void testExchange() {
-		assertTrue(ls!=null);
 		setUp1();
-		Comparable e = "dato";
-		Comparable a = "dato1";
-		ls.insertElement(e, 1);
-		ls.insertElement(a, 0);
-		ls.exchange(0, 1);
-		assertEquals(a, ls.getElement(1));
-		assertEquals(e, ls.getElement(0));
 		
+		
+		Comparable e = "1";
+		Comparable a = "2";
+		ls.addFirst(e);
+		ls.addFirst(a);
+		ls.exchange(0, 1);
+		assertNotEquals(e, ls.getElement(0));
+
 	}
 
 	@Test
 	public void testChangeInfo() {
-		assertTrue(ls!=null);
+		
 		setUp1();
 		Comparable a = "dato1";
-		Comparable b = "dato2";
-		
+		Comparable b = null;
+		ls.addFirst(a);
 		ls.changeInfo(0, b);
 		assertEquals(null, ls.getElement(0));
 		
