@@ -1,4 +1,4 @@
-package ArregloDinamicoTest;
+package testModeloEstructuraDatos;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -13,7 +13,7 @@ public class ArregloDinamicoTest {
 	private ArregloDinamico arreglo;
 
 	private static int TAMANOF=1;
-	private static int TAMANOC=2   ;
+	private static int TAMANOC=2 ;
 
 	private Modelo modelo;
 	
