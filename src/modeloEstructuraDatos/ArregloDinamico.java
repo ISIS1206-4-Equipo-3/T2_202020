@@ -59,9 +59,9 @@ public class ArregloDinamico<T extends Comparable<T>>{
 						arregloTemporal[i] = peli;
 			}catch(Exception e) {
 				if(e.getMessage().contains("Integer cannot be cast to class java.lang.String")){
-					System.out.println("++CAUTION: Existe un error en el formato del elemento con id #" +elementos[posId][i] + "\n      + En un espacio donde debería ir un nombre hay un numero.\n");
+					System.out.println("++CAUTION: Existe un error en el formato del elemento con id #" +elementos[posId][i] + "\n      + En un espacio donde deberia ir un nombre hay un numero.\n");
 				}else {
-					System.out.println("CAUTION: Existió un error desconocido cargando el dato con id #"+ elementos[posId][i]);
+					System.out.println("CAUTION: Existio un error desconocido cargando el dato con id #"+ elementos[posId][i]);
 				}
 			}
 		}

@@ -78,7 +78,7 @@ public class controlador {
 					switch(opcionDos) {
 
 					case 1:
-						view.printMessage(" \n Imprimiendo información de las peliculas... \n");
+						view.printMessage(" \n Imprimiendo informacion de las peliculas... \n");
 						modelo.imprimirTodasLasPeliculas();
 						break;
 					case 2: 
