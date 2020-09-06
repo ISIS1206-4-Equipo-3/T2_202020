@@ -63,6 +63,31 @@ public class controlador {
 							view.printMessage("Director no encontrado");
 						}							
 						break;
+					case 5:
+						view.printMessage("\nPorfavor introduzca el nombre del genero a buscar:");
+						String genero = lectura.nextLine();
+						if(genero.length()<5) view.printMessage("+CAUTION: Es necesario introducir un nombre del genero a buscar\n");
+						else{view.printMessage(modelo.entenderUnGenero(genero) + "\n");}
+						break;
+					case 6:
+						view.printMessage("\nPorfavor introduzca el nombre del genero a rankear:");
+						genero = lectura.nextLine();
+						if(genero.length()<5) view.printMessage("+CAUTION: Es necesario introducir un nombre del genero a buscar\n");
+						else{
+							String listaGenero = modelo.crearRankingGeneroPrimerLlamado(genero);
+							if(listaGenero.contains("No se encontraron peliculas con el genero")) {
+								view.printMessage(listaGenero);
+								
+							}else {
+								view.printMessage(listaGenero);
+								view.printInstruccionesDeEntradaReq6();
+								String entrada = lectura.nextLine();
+								view.printReq6Orden();
+								int orden = Integer.parseInt(lectura.nextLine());
+								view.printMessage(modelo.crearRankingGeneroSegundoLlamado(entrada, orden));
+							}
+							break;
+						}
 					case 7: 
 						acabarOpcion1 =true;
 						break;

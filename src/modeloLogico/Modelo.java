@@ -19,6 +19,8 @@ public class Modelo {
 	public ArregloDinamico datos;
 	public ListaEncadenada<Pelicula> datosEncadenados;
 	
+	//Este atributo es excusivo para el requerimiento "Crear ranking del género".
+	private ArregloDinamico arregloDinamicoDeGeneroBuscado;
 	
 	public String RUTA_DATOS_PRINCIPALES= "./data/small/MoviesCastingRaw-small.csv";
 	public String RUTA_DATOS_SECUNDARIOS= "./data/small/SmallMoviesDetailsCleaned.csv";
@@ -39,7 +41,6 @@ public class Modelo {
 	private final static int COLUMNA_ACTOR_4 = 7 ;
 	private final static int COLUMNA_ACTOR_5 = 9 ;
 	private final static int COLUMNA_NUM_CALIFICACIONES = 36; 
-
 
 	private FileReader archivoPrincipal;
 	private CSVReader lectorPrincipal;
@@ -99,6 +100,119 @@ public class Modelo {
 				+ info;
 		return rta;
 	}
+	
+	public String entenderUnGenero(String entrada) {
+		String rta = "";
+		String nombresPeliculas = "";
+		int contadorPeliculasGenero =0;
+		double sumaDeVotos = 0;
+		for(int i =0 ; i<datos.darTamanoFilas();i++) {
+			String[] generos = datos.darElementoEn(COLUMNA_GENERO, i).toString().split("\\|");
+			for(int j = 0; j<generos.length;j++) {
+				if (generos[j].equalsIgnoreCase(entrada)) {
+					nombresPeliculas += "- "+ datos.darElementoEn(COLUMNA_TITULO, i) + "\n";
+					sumaDeVotos += Double.parseDouble(datos.darElementoEn(COLUMNA_NUM_CALIFICACIONES, i).toString());
+					++contadorPeliculasGenero;
+				}
+			}
+		}
+		if(contadorPeliculasGenero>0) {
+			rta += "Se han encontrado " + contadorPeliculasGenero + " peliculas del genero " + entrada + ":\n" + nombresPeliculas;
+			double PromedioVotos = sumaDeVotos/contadorPeliculasGenero;
+			rta += "\nTodas estas peliculas tienen un promedio de " + PromedioVotos + " votos. \n";
+		}else {
+			rta += "No se contraron peliculas con el genero " + entrada;
+		}
+		return rta;
+	}
+
+	public String crearRankingGeneroPrimerLlamado(String entrada) {
+		String rta = "";
+		String listaDePeliculas = "";
+		arregloDinamicoDeGeneroBuscado = new ArregloDinamico<>(4, 1);
+		int contador = 1;
+		for(int i =0 ; i<datos.darTamanoFilas();i++) {
+			if (datos.darElementoEn(COLUMNA_GENERO, i).toString().toLowerCase().contains(entrada.toLowerCase())) {
+				listaDePeliculas += contador + ". "+ datos.darElementoEn(COLUMNA_TITULO, i) + "\n";
+				++contador;
+				arregloDinamicoDeGeneroBuscado.agregar(contador, 0, contador-1);
+				arregloDinamicoDeGeneroBuscado.agregar(datos.darElementoEn(COLUMNA_TITULO, i).toString(), 1, contador-1);
+				arregloDinamicoDeGeneroBuscado.agregar(datos.darElementoEn(COLUMNA_NUM_CALIFICACIONES, i).toString(), 2, contador-1);
+				arregloDinamicoDeGeneroBuscado.agregar(datos.darElementoEn(COLUMNA_CALIFICACIONES, i).toString(), 3, contador-1);
+			}
+		}
+		if(contador>1) {
+			rta += "Se han encontrado las siguientes peliculas del genero " + entrada + ":\n" + listaDePeliculas;
+		}else {
+			rta += "No se encontraron peliculas con el genero " + entrada;
+		}
+		return rta;
+	}
+	
+	public String crearRankingGeneroSegundoLlamado (String entrada, int orden) {
+		try {
+			String rta ="";
+			String[] entradaSeparada = entrada.split(",");
+			ArregloDinamico nuevoArregloAOrganizar =new ArregloDinamico<>(arregloDinamicoDeGeneroBuscado.darTamanoColumnas(), arregloDinamicoDeGeneroBuscado.darTamanoFilas());
+			if (entradaSeparada.length<10) throw new Exception();
+			int[] numerosDePeliculasARankear = new int[entradaSeparada.length];
+			for(int i = 0; i<entradaSeparada.length;i++) {
+				numerosDePeliculasARankear[i] = Integer.parseInt(entradaSeparada[i].trim());
+			}
+			for(int i = 0; i<numerosDePeliculasARankear.length;i++) {
+				nuevoArregloAOrganizar.agregar((int)arregloDinamicoDeGeneroBuscado.darElementoEn(0, numerosDePeliculasARankear[i]), 0, i);
+				nuevoArregloAOrganizar.agregar((String)arregloDinamicoDeGeneroBuscado.darElementoEn(1, numerosDePeliculasARankear[i]), 1, i);
+				nuevoArregloAOrganizar.agregar(Integer.parseInt((String) arregloDinamicoDeGeneroBuscado.darElementoEn(2, numerosDePeliculasARankear[i])), 2, i);
+				nuevoArregloAOrganizar.agregar(Double.parseDouble((String) arregloDinamicoDeGeneroBuscado.darElementoEn(3, numerosDePeliculasARankear[i])), 3, i);
+			}
+			ArregloDinamico arregloOrdenado = organizarRankingGenero(nuevoArregloAOrganizar, orden);
+			rta += "Se ha creado el ranking por promedio de votaciones con los elementos dados :\n";
+			for (int i = 0; i<arregloOrdenado.darTamanoFilas(); i++) {
+				rta += "\n#"+(i+1)+" Titulo:" + arregloOrdenado.darElementoEn(1, i);
+				rta += "\n    - Numero Votos:" + arregloOrdenado.darElementoEn(2, i);
+				rta += "\n    - Promedio Votaciones:" + arregloOrdenado.darElementoEn(3, i) + "\n";
+			}
+			rta += "----------------------------------------------------------------------------\n";
+			return rta;
+		}catch (Exception e) {
+			return "++CAUTION: Se encontro un error en el formato de la entrada porfavor asegurese que:\n  -Sean minimo 10 elementos\n  -Esten correctamente separados por comas\n  -Todos los numeros ingresados tengan una pelicula correspondiente \n \n";
+		}
+		
+	}
+	
+	private ArregloDinamico organizarRankingGenero(ArregloDinamico arregloAOrganizar, int orden) {
+		Comparable[] listaOrganizar = new Comparable[arregloAOrganizar.darTamanoFilas()];
+		ArregloDinamico rta = new ArregloDinamico<>(4, arregloAOrganizar.darTamanoFilas());
+		for (int i = 0; i<arregloAOrganizar.darTamanoFilas(); i++) {
+			listaOrganizar[i] = (double)arregloAOrganizar.darElementoEn(3, i);
+		}
+		ShellSort shellsort = new ShellSort ();
+		shellsort.sort(listaOrganizar);
+		for(int i = 0; i<arregloAOrganizar.darTamanoFilas(); i++) {
+			int posicionDelElemento = buscarLaPosicionDelPromedioVotaciones(arregloAOrganizar, (double)listaOrganizar[i]);
+			for(int j = 0; j<4;j++) {
+				rta.agregar((Comparable)arregloAOrganizar.darElementoEn(j, posicionDelElemento), j, i);
+			}
+			arregloAOrganizar.agregar(null, 3, posicionDelElemento);
+		}
+		if(orden == 2) {
+			int i =0;
+			for (int j = (arregloAOrganizar.darTamanoFilas()-1); j>i;j--) {
+				rta.intercambiarFila(i, j);
+				i++;
+			}
+		}
+		return rta;
+	}
+	private int buscarLaPosicionDelPromedioVotaciones (ArregloDinamico arregloABuscar, double promedio) {
+		for(int i = 0; i< arregloABuscar.darTamanoFilas();i++) {
+			if(arregloABuscar.darElementoEn(3, i)!=null) {
+				if((double)arregloABuscar.darElementoEn(3, i) == promedio) return i;
+			}
+		}
+		return -1;
+	}
+	
 
 	public void cargarDatosEncadenados(String pRutaPrincipal, String pRutaSecundaria)
 	{
@@ -146,10 +260,7 @@ public class Modelo {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
 	}
-	
 	
 	
 	public void cargarDatos(String pRutaPrincipal, String pRutaSecundaria) {

@@ -167,6 +167,13 @@ public class ArregloDinamico<T extends Comparable<T>>{
 		
 	}
 	
+	public void intercambiarFila (int numFila1, int numFila2){
+		Object[] contenidoFila1 = new Object[darTamanoColumnas()];
+		for(int i = 0;i<darTamanoColumnas();i++) {contenidoFila1[i] = (T) elementos[i][numFila1];}
+		for(int i = 0;i<darTamanoColumnas();i++) {elementos[i][numFila1] = (T) elementos[i][numFila2];}
+		for(int i = 0;i<darTamanoColumnas();i++) {elementos[i][numFila2] = contenidoFila1[i];}
+	}
+	
 	public Object darElementoEn (int numColumna, int numFila) {
 		return elementos[numColumna][numFila];
 	}

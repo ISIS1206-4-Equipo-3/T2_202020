@@ -25,7 +25,7 @@ public class View {
 		System.out.println("2. Crear ranking de peliculas");
 		System.out.println("3. Conocer informacion sobre un director");
 		System.out.println("4. Conocer informacion sobre un actor");
-		System.out.println("5. Conocer caracteristicas de un genero de peliculas");
+		System.out.println("5. Entender un genero cinematografico");
 		System.out.println("6. Crear ranking de un genero de peliculas");
 		System.out.println("7. <--- REGRESAR");
 		System.out.println("Dar el numero de opcion a resolver, luego oprimir tecla Return: (e.g., 1):");
@@ -60,5 +60,17 @@ public class View {
 		System.out.println("2. Cargar datos de peliculas grandes.");
 	}
 	
+	public void printReq6Orden() {
+		System.out.println("¿En que orden desea organizar el ranking?");
+		System.out.println("1. Ascendente");
+		System.out.println("2. Descendente");
+	}
+	
+	public void printInstruccionesDeEntradaReq6() {
+		System.out.println("Porfavor introduzca los numeros de las peliculas que desea rankear, tenga en cuenta que");
+		System.out.println("  -Deben seguir un formato separado por comas ej: 1,2,3,4,5,6,7,8,9,10");
+		System.out.println("  -Deben ser minimo 10 peliculas");
+		System.out.println("  -Los numeros ingresados deben estar entre los impresos anteriormente");
+	}
 	
 }
