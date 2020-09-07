@@ -171,7 +171,7 @@ public class Modelo {
 		return rta;
 	}
 	
-	public String crearRankingGeneroSegundoLlamado (String entrada, int orden) {
+	public String crearRankingGeneroSegundoLlamado (String entrada, int orden, int criterio) {
 		try {
 			String rta ="";
 			String[] entradaSeparada = entrada.split(",");
@@ -187,7 +187,7 @@ public class Modelo {
 				nuevoArregloAOrganizar.agregar(Integer.parseInt((String) arregloDinamicoDeGeneroBuscado.darElementoEn(2, numerosDePeliculasARankear[i])), 2, i);
 				nuevoArregloAOrganizar.agregar(Double.parseDouble((String) arregloDinamicoDeGeneroBuscado.darElementoEn(3, numerosDePeliculasARankear[i])), 3, i);
 			}
-			ArregloDinamico arregloOrdenado = organizarRankingGenero(nuevoArregloAOrganizar, orden);
+			ArregloDinamico arregloOrdenado = organizarRankingGenero(nuevoArregloAOrganizar, orden, criterio);
 			rta += "Se ha creado el ranking por promedio de votaciones con los elementos dados :\n";
 			for (int i = 0; i<arregloOrdenado.darTamanoFilas(); i++) {
 				rta += "\n#"+(i+1)+" Titulo:" + arregloOrdenado.darElementoEn(1, i);
@@ -291,22 +291,38 @@ public class Modelo {
 
 	
 	
-	private ArregloDinamico organizarRankingGenero(ArregloDinamico arregloAOrganizar, int orden) 
+	private ArregloDinamico organizarRankingGenero(ArregloDinamico arregloAOrganizar, int orden, int criterio) 
 	{
 		Comparable[] listaOrganizar = new Comparable[arregloAOrganizar.darTamanoFilas()];
 		ArregloDinamico rta = new ArregloDinamico<>(4, arregloAOrganizar.darTamanoFilas());
-		for (int i = 0; i<arregloAOrganizar.darTamanoFilas(); i++) {
-			listaOrganizar[i] = (double)arregloAOrganizar.darElementoEn(3, i);
-		}
-		ShellSort shellsort = new ShellSort ();
-		shellsort.sort(listaOrganizar);
-		for(int i = 0; i<arregloAOrganizar.darTamanoFilas(); i++) {
-			int posicionDelElemento = buscarLaPosicionDelPromedioVotaciones(arregloAOrganizar, (double)listaOrganizar[i]);
-			for(int j = 0; j<4;j++) {
-				rta.agregar((Comparable)arregloAOrganizar.darElementoEn(j, posicionDelElemento), j, i);
+		if(criterio ==2) {
+			for (int i = 0; i<arregloAOrganizar.darTamanoFilas(); i++) {
+				listaOrganizar[i] = (double)arregloAOrganizar.darElementoEn(3, i);
 			}
-			arregloAOrganizar.agregar(null, 3, posicionDelElemento);
+			ShellSort shellsort = new ShellSort ();
+			shellsort.sort(listaOrganizar);
+			for(int i = 0; i<arregloAOrganizar.darTamanoFilas(); i++) {
+				int posicionDelElemento = buscarLaPosicionDelPromedioVotaciones(arregloAOrganizar, (double)listaOrganizar[i]);
+				for(int j = 0; j<4;j++) {
+					rta.agregar((Comparable)arregloAOrganizar.darElementoEn(j, posicionDelElemento), j, i);
+				}
+				arregloAOrganizar.agregar(null, 3, posicionDelElemento);
+			}
+		}else {
+			for (int i = 0; i<arregloAOrganizar.darTamanoFilas(); i++) {
+				listaOrganizar[i] = (int)arregloAOrganizar.darElementoEn(2, i);
+			}
+			ShellSort shellsort = new ShellSort ();
+			shellsort.sort(listaOrganizar);
+			for(int i = 0; i<arregloAOrganizar.darTamanoFilas(); i++) {
+				int posicionDelElemento = buscarLaPosicionDelNumeroVotaciones(arregloAOrganizar, (int)listaOrganizar[i]);
+				for(int j = 0; j<4;j++) {
+					rta.agregar((Comparable)arregloAOrganizar.darElementoEn(j, posicionDelElemento), j, i);
+				}
+				arregloAOrganizar.agregar(null, 3, posicionDelElemento);
+			}
 		}
+		
 		if(orden == 2) {
 			int i =0;
 			for (int j = (arregloAOrganizar.darTamanoFilas()-1); j>i;j--) {

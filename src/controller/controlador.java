@@ -96,7 +96,9 @@ public class controlador {
 								String entrada = lectura.nextLine();
 								view.printReq6Orden();
 								int orden = Integer.parseInt(lectura.nextLine());
-								view.printMessage(modelo.crearRankingGeneroSegundoLlamado(entrada, orden));
+								view.printTipoOrden();
+								int criterio = Integer.parseInt(lectura.nextLine());
+								view.printMessage(modelo.crearRankingGeneroSegundoLlamado(entrada, orden, criterio));
 							}
 							break;
 						}

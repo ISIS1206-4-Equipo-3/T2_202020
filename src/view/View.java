@@ -78,5 +78,6 @@ public class View {
 		System.out.println("  -Deben ser minimo 10 peliculas");
 		System.out.println("  -Los numeros ingresados deben estar entre los impresos anteriormente");
 	}
+
 	
 }
