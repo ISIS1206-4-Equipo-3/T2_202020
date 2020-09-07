@@ -65,9 +65,15 @@ public class View {
 		System.out.println("1. Ascendente");
 		System.out.println("2. Descendente");
 	}
+	public void printTipoOrden()
+	{
+		System.out.println("Con que criterio quiere organizar el ranking?");
+		System.out.println("1. Numero de votos");
+		System.out.println("2. Promedio de votos");
+	}
 	
 	public void printInstruccionesDeEntradaReq6() {
-		System.out.println("Porfavor introduzca los numeros de las peliculas que desea rankear, tenga en cuenta que");
+		System.out.println("Por favor introduzca los numeros de las peliculas que desea rankear, tenga en cuenta que:");
 		System.out.println("  -Deben seguir un formato separado por comas ej: 1,2,3,4,5,6,7,8,9,10");
 		System.out.println("  -Deben ser minimo 10 peliculas");
 		System.out.println("  -Los numeros ingresados deben estar entre los impresos anteriormente");

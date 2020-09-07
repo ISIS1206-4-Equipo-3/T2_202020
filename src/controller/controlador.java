@@ -63,6 +63,18 @@ public class controlador {
 							view.printMessage("Director no encontrado");
 						}							
 						break;
+					
+					case 2:
+						view.printMessage("Estas son las peliculas que contiene el archivo:");
+						view.printMessage(modelo.darListaPeliculas());
+						view.printInstruccionesDeEntradaReq6();
+						String numeroPeliculas = lectura.nextLine();
+						view.printReq6Orden();
+						int ordenPeliculas = Integer.parseInt(lectura.nextLine());
+						view.printTipoOrden();
+						int parametroOrdenamiento = Integer.parseInt(lectura.nextLine());
+						view.printMessage(modelo.crearRankingPeliculas(numeroPeliculas, ordenPeliculas, parametroOrdenamiento));
+						break;
 					case 5:
 						view.printMessage("\nPorfavor introduzca el nombre del genero a buscar:");
 						String genero = lectura.nextLine();

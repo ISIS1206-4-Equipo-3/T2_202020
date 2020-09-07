@@ -19,8 +19,10 @@ public class Modelo {
 	public ArregloDinamico datos;
 	public ListaEncadenada<Pelicula> datosEncadenados;
 	
-	//Este atributo es excusivo para el requerimiento "Crear ranking del género".
+	//Este atributo es excusivo para el requerimiento "Crear ranking del genero".
 	private ArregloDinamico arregloDinamicoDeGeneroBuscado;
+	
+	private ArregloDinamico arregloDePelicula;
 	
 	public String RUTA_DATOS_PRINCIPALES= "./data/small/MoviesCastingRaw-small.csv";
 	public String RUTA_DATOS_SECUNDARIOS= "./data/small/SmallMoviesDetailsCleaned.csv";
@@ -28,7 +30,8 @@ public class Modelo {
 	public final static int NUMERO_OPCION_DE_CARGA_LISTAENCADENADA = 1;
 	public final static int NUMERO_OPCION_DE_CARGA_ARREGLODINAMICO = 2;
 	
-
+	private final static int CRITERIO_NUM_VOTOS = 1;
+	private final static int CRITERIO_PROMEDIO_VOTOS = 2;
 	private final static int COLUMNA_DIRECTORES = 12;
 	private final static int COLUMNA_CALIFICACIONES = 35;
 	private final static int COLUMNA_ID = 0;	
@@ -121,11 +124,30 @@ public class Modelo {
 			double PromedioVotos = sumaDeVotos/contadorPeliculasGenero;
 			rta += "\nTodas estas peliculas tienen un promedio de " + PromedioVotos + " votos. \n";
 		}else {
-			rta += "No se contraron peliculas con el genero " + entrada;
+			rta += "No se encontraron peliculas con el genero " + entrada;
 		}
 		return rta;
 	}
+	
 
+	public String darListaPeliculas()
+	{
+		String resp = "";
+		int contador = 1;
+		arregloDePelicula = new ArregloDinamico<>(4, 1);
+		for(int i =0 ; i<datos.darTamanoFilas();i++) {
+				resp += contador + ". "+ datos.darElementoEn(COLUMNA_TITULO, i) + "\n";
+				++contador;
+				arregloDePelicula.agregar(contador, 0, contador-1);
+				arregloDePelicula.agregar(datos.darElementoEn(COLUMNA_TITULO, i).toString(), 1, contador-1);
+				arregloDePelicula.agregar(datos.darElementoEn(COLUMNA_NUM_CALIFICACIONES, i).toString(), 2, contador-1);
+				arregloDePelicula.agregar(datos.darElementoEn(COLUMNA_CALIFICACIONES, i).toString(), 3, contador-1);
+
+		}
+		return resp;
+	}
+
+	
 	public String crearRankingGeneroPrimerLlamado(String entrada) {
 		String rta = "";
 		String listaDePeliculas = "";
@@ -180,7 +202,97 @@ public class Modelo {
 		
 	}
 	
-	private ArregloDinamico organizarRankingGenero(ArregloDinamico arregloAOrganizar, int orden) {
+	public String crearRankingPeliculas(String peliculas, int orden, int criterio)
+	{
+		try
+		{
+			String rta ="";
+			String[] entradaSeparada = peliculas.split(",");
+			ArregloDinamico nuevoArregloAOrganizar =new ArregloDinamico<>(arregloDePelicula.darTamanoColumnas(), arregloDePelicula.darTamanoFilas());
+			if (entradaSeparada.length<10) throw new Exception();
+			int[] numerosDePeliculasARankear = new int[entradaSeparada.length];
+			for(int i = 0; i<entradaSeparada.length;i++) {
+				numerosDePeliculasARankear[i] = Integer.parseInt(entradaSeparada[i].trim());
+			}
+			for(int i = 0; i<numerosDePeliculasARankear.length;i++) {
+				nuevoArregloAOrganizar.agregar((int)arregloDePelicula.darElementoEn(0, numerosDePeliculasARankear[i]), 0, i);
+				nuevoArregloAOrganizar.agregar((String)arregloDePelicula.darElementoEn(1, numerosDePeliculasARankear[i]), 1, i);
+				nuevoArregloAOrganizar.agregar(Integer.parseInt((String) arregloDePelicula.darElementoEn(2, numerosDePeliculasARankear[i])), 2, i);
+				nuevoArregloAOrganizar.agregar(Double.parseDouble((String) arregloDePelicula.darElementoEn(3, numerosDePeliculasARankear[i])), 3, i);
+			}
+			ArregloDinamico arregloOrdenado = organizarRankingPeliculas(nuevoArregloAOrganizar, orden, criterio);
+			rta += "Se ha creado el ranking por promedio de votaciones con los elementos dados :\n";
+			for (int i = 0; i<arregloOrdenado.darTamanoFilas(); i++) {
+				rta += "\n#"+(i+1)+" Titulo:" + arregloOrdenado.darElementoEn(1, i);
+				rta += "\n    - Numero Votos:" + arregloOrdenado.darElementoEn(2, i);
+				rta += "\n    - Promedio Votaciones:" + arregloOrdenado.darElementoEn(3, i) + "\n";
+			}
+			rta += "----------------------------------------------------------------------------\n";
+			return rta;
+		}
+		catch(Exception e)
+		{
+			return "++CAUTION: Se encontro un error en el formato de la entrada porfavor asegurese que:\n  -Sean minimo 10 elementos\n  -Esten correctamente separados por comas\n  -Todos los numeros ingresados tengan una pelicula correspondiente \n \n";
+		}
+	}
+	
+	private ArregloDinamico organizarRankingPeliculas(ArregloDinamico arregloAOrganizar, int orden , int criterio) 
+	{
+		if(criterio == CRITERIO_PROMEDIO_VOTOS) {
+		Comparable[] listaOrganizar = new Comparable[arregloAOrganizar.darTamanoFilas()];
+		ArregloDinamico rta = new ArregloDinamico<>(4, arregloAOrganizar.darTamanoFilas());
+		for (int i = 0; i<arregloAOrganizar.darTamanoFilas(); i++) {
+			listaOrganizar[i] = (double)arregloAOrganizar.darElementoEn(3, i);
+		}
+		ShellSort shellsort = new ShellSort ();
+		shellsort.sort(listaOrganizar);
+		for(int i = 0; i<arregloAOrganizar.darTamanoFilas(); i++) {
+			int posicionDelElemento = buscarLaPosicionDelPromedioVotaciones(arregloAOrganizar, (double)listaOrganizar[i]);
+			for(int j = 0; j<4;j++) {
+				rta.agregar((Comparable)arregloAOrganizar.darElementoEn(j, posicionDelElemento), j, i);
+			}
+			arregloAOrganizar.agregar(null, 3, posicionDelElemento);
+		}
+		if(orden == 2) {
+			int i =0;
+			for (int j = (arregloAOrganizar.darTamanoFilas()-1); j>i;j--) {
+				rta.intercambiarFila(i, j);
+				i++;
+			}
+		}
+		return rta;
+	}
+		else
+		{
+			Comparable[] listaOrganizar = new Comparable[arregloAOrganizar.darTamanoFilas()];
+			ArregloDinamico rta = new ArregloDinamico<>(4, arregloAOrganizar.darTamanoFilas());
+			for (int i = 0; i<arregloAOrganizar.darTamanoFilas(); i++) {
+				listaOrganizar[i] = (int)arregloAOrganizar.darElementoEn(2, i);
+			}
+			ShellSort shellsort = new ShellSort ();
+			shellsort.sort(listaOrganizar);
+			for(int i = 0; i<arregloAOrganizar.darTamanoFilas(); i++) {
+				int posicionDelElemento = buscarLaPosicionDelNumeroVotaciones(arregloAOrganizar, (int)listaOrganizar[i]);
+				for(int j = 0; j<4;j++) {
+					rta.agregar((Comparable)arregloAOrganizar.darElementoEn(j, posicionDelElemento), j, i);
+				}
+				arregloAOrganizar.agregar(null, 3, posicionDelElemento);
+			}
+			if(orden == 2) {
+				int i =0;
+				for (int j = (arregloAOrganizar.darTamanoFilas()-1); j>i;j--) {
+					rta.intercambiarFila(i, j);
+					i++;
+				}
+			}
+			return rta;
+		}
+	}
+
+	
+	
+	private ArregloDinamico organizarRankingGenero(ArregloDinamico arregloAOrganizar, int orden) 
+	{
 		Comparable[] listaOrganizar = new Comparable[arregloAOrganizar.darTamanoFilas()];
 		ArregloDinamico rta = new ArregloDinamico<>(4, arregloAOrganizar.darTamanoFilas());
 		for (int i = 0; i<arregloAOrganizar.darTamanoFilas(); i++) {
@@ -212,7 +324,14 @@ public class Modelo {
 		}
 		return -1;
 	}
-	
+	private int buscarLaPosicionDelNumeroVotaciones (ArregloDinamico arregloABuscar, int numeroVotaciones) {
+		for(int i = 0; i< arregloABuscar.darTamanoFilas();i++) {
+			if(arregloABuscar.darElementoEn(2, i)!=null) {
+				if((int)arregloABuscar.darElementoEn(2, i) == numeroVotaciones) return i;
+			}
+		}
+		return -1;
+	}
 
 	public void cargarDatosEncadenados(String pRutaPrincipal, String pRutaSecundaria)
 	{
