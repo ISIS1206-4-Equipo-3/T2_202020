@@ -24,6 +24,7 @@ public class controlador {
 		boolean acabar = false;
 		Integer dato = null;
 		Comparable rta = " ";
+		Comparable respuesta = " ";
 
 		while(!acabar)
 		{
@@ -75,6 +76,39 @@ public class controlador {
 						int parametroOrdenamiento = Integer.parseInt(lectura.nextLine());
 						view.printMessage(modelo.crearRankingPeliculas(numeroPeliculas, ordenPeliculas, parametroOrdenamiento));
 						break;
+						
+						
+					case 3:
+						view.printMessage(" \n Conocer información sobre un director \n Dar nombre del director: ");
+						String director_name_to_be_known = lectura.nextLine();
+						respuesta = modelo.conocerUnDirector(director_name_to_be_known);
+						if ( respuesta != null)
+						{
+							view.printMessage("Peliculas dirigidas por el director "+ director_name_to_be_known+ "\n"+ respuesta);
+
+						}
+						else
+						{
+							view.printMessage("Director no encontrado");
+						}							
+						break;
+						
+					case 4:
+						view.printMessage(" \n Conocer información sobre un actor \n Dar nombre del actor: ");
+						String actor_name_to_be_known = lectura.nextLine();
+						respuesta = modelo.conocerUnActor(actor_name_to_be_known);
+						if ( respuesta != null)
+						{
+							view.printMessage("Peliculas en las que el actor  "+ actor_name_to_be_known+ " a participado: \n"+ respuesta);
+
+						}
+						else
+						{
+							view.printMessage("Actor no encontrado");
+						}							
+						break;
+						
+					
 					case 5:
 						view.printMessage("\nPorfavor introduzca el nombre del genero a buscar:");
 						String genero = lectura.nextLine();
