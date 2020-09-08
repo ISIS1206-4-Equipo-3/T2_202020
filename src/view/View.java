@@ -52,7 +52,7 @@ public class View {
 		System.out.println("Alejandro Ahogado 201920701");
 		System.out.println("Santiago Triana 201923265");
 		System.out.println("Universidad de los Andes - Bogota, Colombia");
-		System.out.println("Estructuras de Datos 202020_ISIS_1206_04 \n");
+		System.out.println("Estructuras de Datos 202020_ISIS_1206_04 GRUPO 3\n");
 	}
 	
 	public void printCambiarDatosACargar() {
@@ -77,6 +77,21 @@ public class View {
 		System.out.println("  -Deben seguir un formato separado por comas ej: 1,2,3,4,5,6,7,8,9,10");
 		System.out.println("  -Deben ser minimo 10 peliculas");
 		System.out.println("  -Los numeros ingresados deben estar entre los impresos anteriormente");
+	}
+
+	public void printErrorConNumeroDeEntrada() {
+		// TODO Auto-generated method stub
+		System.out.println("\n++CAUTION: Ha introducido un caracter diferente a un numero del 0 a al 9. Opcion invalida \n");
+	}
+	public void printErrorDesconocido() {
+		// TODO Auto-generated method stub
+		System.out.println("\n++CAUTION: Ha sucedido un error desconocido \n");
+	}
+
+	public void printDespedida() {
+		// TODO Auto-generated method stub
+		printInformacionDeCreadores();
+		System.out.println("\nGracias por usar nuestra base de datos :)");
 	}
 
 	

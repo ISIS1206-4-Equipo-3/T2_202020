@@ -28,166 +28,174 @@ public class controlador {
 
 		while(!acabar)
 		{
-			view.printMenu();
-			boolean acabarOpcion1 = false;
-			int opcion = Integer.parseInt(lectura.nextLine());
-			switch(opcion) {
+			try {
+				view.printMenu();
+				boolean acabarOpcion1 = false;
+				int opcion = Integer.parseInt(lectura.nextLine());
+				switch(opcion) {
 
-			case 2:
-				view.printMessage("-------- Cargando informacion con Arreglo Dinamico -------- \n");
-				modelo.CargarModelo(modelo.NUMERO_OPCION_DE_CARGA_ARREGLODINAMICO);
-				int centinela = 0;
-				while (!acabarOpcion1) {
-					if (centinela==0) 
-					{
-						modelo.copiarMatriz();
-						modelo.imprimirPeliculaArregloDinamico();
-						centinela++;
-					}
-					
-					view.printMenuOpcion2();
-					
-					int opcionDos = Integer.parseInt(lectura.nextLine());
-					switch(opcionDos) {
-
-					case 1:
-						view.printMessage(" \n Encontrar peliculas buenas de un director \n Dar nombre del director: ");
-						String director_name = lectura.nextLine();
-						rta = modelo.darPeliculasDeUnDirector(director_name);
-						if ( rta != null)
+				case 2:
+					view.printMessage("-------- Cargando informacion con Arreglo Dinamico -------- \n");
+					modelo.CargarModelo(modelo.NUMERO_OPCION_DE_CARGA_ARREGLODINAMICO);
+					int centinela = 0;
+					while (!acabarOpcion1) {
+						if (centinela==0) 
 						{
-							view.printMessage("Peliculas buenas del director "+director_name+ "\n"+ rta);
-
+							modelo.copiarMatriz();
+							modelo.imprimirPeliculaArregloDinamico();
+							centinela++;
 						}
-						else
-						{
-							view.printMessage("Director no encontrado");
-						}							
-						break;
-					
-					case 2:
-						view.printMessage("Estas son las peliculas que contiene el archivo:");
-						view.printMessage(modelo.darListaPeliculas());
-						view.printInstruccionesDeEntradaReq6();
-						String numeroPeliculas = lectura.nextLine();
-						view.printReq6Orden();
-						int ordenPeliculas = Integer.parseInt(lectura.nextLine());
-						view.printTipoOrden();
-						int parametroOrdenamiento = Integer.parseInt(lectura.nextLine());
-						view.printMessage(modelo.crearRankingPeliculas(numeroPeliculas, ordenPeliculas, parametroOrdenamiento));
-						break;
-						
-						
-					case 3:
-						view.printMessage(" \n Conocer información sobre un director \n Dar nombre del director: ");
-						String director_name_to_be_known = lectura.nextLine();
-						respuesta = modelo.conocerUnDirector(director_name_to_be_known);
-						if ( respuesta != null)
-						{
-							view.printMessage("Peliculas dirigidas por el director "+ director_name_to_be_known+ "\n"+ respuesta);
 
-						}
-						else
-						{
-							view.printMessage("Director no encontrado");
-						}							
-						break;
-						
-					case 4:
-						view.printMessage(" \n Conocer información sobre un actor \n Dar nombre del actor: ");
-						String actor_name_to_be_known = lectura.nextLine();
-						respuesta = modelo.conocerUnActor(actor_name_to_be_known);
-						if ( respuesta != null)
-						{
-							view.printMessage("Peliculas en las que el actor  "+ actor_name_to_be_known+ " a participado: \n"+ respuesta);
+						view.printMenuOpcion2();
 
-						}
-						else
-						{
-							view.printMessage("Actor no encontrado");
-						}							
-						break;
-						
-					
-					case 5:
-						view.printMessage("\nPorfavor introduzca el nombre del genero a buscar:");
-						String genero = lectura.nextLine();
-						if(genero.length()<5) view.printMessage("+CAUTION: Es necesario introducir un nombre del genero a buscar\n");
-						else{view.printMessage(modelo.entenderUnGenero(genero) + "\n");}
-						break;
-					case 6:
-						view.printMessage("\nPorfavor introduzca el nombre del genero a rankear:");
-						genero = lectura.nextLine();
-						if(genero.length()<5) view.printMessage("+CAUTION: Es necesario introducir un nombre del genero a buscar\n");
-						else{
-							String listaGenero = modelo.crearRankingGeneroPrimerLlamado(genero);
-							if(listaGenero.contains("No se encontraron peliculas con el genero")) {
-								view.printMessage(listaGenero);
-								
-							}else {
-								view.printMessage(listaGenero);
-								view.printInstruccionesDeEntradaReq6();
-								String entrada = lectura.nextLine();
-								view.printReq6Orden();
-								int orden = Integer.parseInt(lectura.nextLine());
-								view.printTipoOrden();
-								int criterio = Integer.parseInt(lectura.nextLine());
-								view.printMessage(modelo.crearRankingGeneroSegundoLlamado(entrada, orden, criterio));
+						int opcionDos = Integer.parseInt(lectura.nextLine());
+						switch(opcionDos) {
+
+						case 1:
+							view.printMessage(" \n Encontrar peliculas buenas de un director \n Dar nombre del director: ");
+							String director_name = lectura.nextLine();
+							rta = modelo.darPeliculasDeUnDirector(director_name);
+							if ( rta != null)
+							{
+								view.printMessage("Peliculas buenas del director "+director_name+ "\n"+ rta);
+
 							}
+							else
+							{
+								view.printMessage("Director no encontrado");
+							}							
+							break;
+
+						case 2:
+							view.printMessage("Estas son las peliculas que contiene el archivo:");
+							view.printMessage(modelo.darListaPeliculas());
+							view.printInstruccionesDeEntradaReq6();
+							String numeroPeliculas = lectura.nextLine();
+							view.printReq6Orden();
+							int ordenPeliculas = Integer.parseInt(lectura.nextLine());
+							view.printTipoOrden();
+							int parametroOrdenamiento = Integer.parseInt(lectura.nextLine());
+							view.printMessage(modelo.crearRankingPeliculas(numeroPeliculas, ordenPeliculas, parametroOrdenamiento));
+							break;
+
+
+						case 3:
+							view.printMessage(" \n Conocer informaciï¿½n sobre un director \n Dar nombre del director: ");
+							String director_name_to_be_known = lectura.nextLine();
+							respuesta = modelo.conocerUnDirector(director_name_to_be_known);
+							if ( respuesta != null)
+							{
+								view.printMessage("Peliculas dirigidas por el director "+ director_name_to_be_known+ "\n"+ respuesta);
+
+							}
+							else
+							{
+								view.printMessage("Director no encontrado");
+							}							
+							break;
+
+						case 4:
+							view.printMessage(" \n Conocer informaciï¿½n sobre un actor \n Dar nombre del actor: ");
+							String actor_name_to_be_known = lectura.nextLine();
+							respuesta = modelo.conocerUnActor(actor_name_to_be_known);
+							if ( respuesta != null)
+							{
+								view.printMessage("Peliculas en las que el actor  "+ actor_name_to_be_known+ " a participado: \n"+ respuesta);
+
+							}
+							else
+							{
+								view.printMessage("Actor no encontrado");
+							}							
+							break;
+
+
+						case 5:
+							view.printMessage("\nPorfavor introduzca el nombre del genero a buscar:");
+							String genero = lectura.nextLine();
+							if(genero.length()<5) view.printMessage("+CAUTION: Es necesario introducir un nombre del genero a buscar\n");
+							else{view.printMessage(modelo.entenderUnGenero(genero) + "\n");}
+							break;
+						case 6:
+							view.printMessage("\nPorfavor introduzca el nombre del genero a rankear:");
+							genero = lectura.nextLine();
+							if(genero.length()<5) view.printMessage("+CAUTION: Es necesario introducir un nombre del genero a buscar\n");
+							else{
+								String listaGenero = modelo.crearRankingGeneroPrimerLlamado(genero);
+								if(listaGenero.contains("No se encontraron peliculas con el genero")) {
+									view.printMessage(listaGenero);
+
+								}else {
+									view.printMessage(listaGenero);
+									view.printInstruccionesDeEntradaReq6();
+									String entrada = lectura.nextLine();
+									view.printReq6Orden();
+									int orden = Integer.parseInt(lectura.nextLine());
+									view.printTipoOrden();
+									int criterio = Integer.parseInt(lectura.nextLine());
+									view.printMessage(modelo.crearRankingGeneroSegundoLlamado(entrada, orden, criterio));
+								}
+								break;
+							}
+						case 7: 
+							acabarOpcion1 =true;
 							break;
 						}
-					case 7: 
-						acabarOpcion1 =true;
-						break;
 					}
-				}
-				break;
-			case 1:
-				view.printMessage("-------- Cargando informacion con Lista Encadenada -------- \n");
-				modelo.CargarModelo(modelo.NUMERO_OPCION_DE_CARGA_LISTAENCADENADA);
-				while (!acabarOpcion1) {
-					view.printMenuOpcion1();
-					int opcionDos = Integer.parseInt(lectura.nextLine());
-					switch(opcionDos) {
-
-					case 1:
-						view.printMessage(" \n Imprimiendo informacion de las peliculas... \n");
-						modelo.imprimirTodasLasPeliculas();
-						break;
-					case 2: 
-						acabarOpcion1 =true;
-						break;
-					}
-				}
-				break;
-			case 3:
-				view.printMessage("Buscando peliculas con peor promedio de votacion");
-				modelo.buscarPeoresPeliculas();
-				break;
-			case 4:
-				view.printInformacionDeCreadores();
-				break;
-			case 5:
-				view.printCambiarDatosACargar();
-				int opcion1 = Integer.parseInt(lectura.nextLine());
-				switch(opcion1) {
+					break;
 				case 1:
-					modelo.RUTA_DATOS_PRINCIPALES = "./data/small/MoviesCastingRaw-small.csv";
-					modelo.RUTA_DATOS_SECUNDARIOS = "./data/small/SmallMoviesDetailsCleaned.csv";
-					view.printMessage("\nSe han establecido los datos pequeÃ±os para cargar.\n");
+					view.printMessage("-------- Cargando informacion con Lista Encadenada -------- \n");
+					modelo.CargarModelo(modelo.NUMERO_OPCION_DE_CARGA_LISTAENCADENADA);
+					while (!acabarOpcion1) {
+						view.printMenuOpcion1();
+						int opcionDos = Integer.parseInt(lectura.nextLine());
+						switch(opcionDos) {
+
+						case 1:
+							view.printMessage(" \n Imprimiendo informacion de las peliculas... \n");
+							modelo.imprimirTodasLasPeliculas();
+							break;
+						case 2: 
+							acabarOpcion1 =true;
+							break;
+						}
+					}
 					break;
-				case 2:
-					modelo.RUTA_DATOS_PRINCIPALES = "./data/large/AllMoviesCastingRaw.csv";
-					modelo.RUTA_DATOS_SECUNDARIOS = "./data/large/AllMoviesDetailsCleaned.csv";
-					view.printMessage("\nSe han establecido los datos grandes para cargar.\n");
+				case 3:
+					view.printMessage("Buscando peliculas con peor promedio de votacion");
+					modelo.buscarPeoresPeliculas();
+					break;
+				case 4:
+					view.printInformacionDeCreadores();
+					break;
+				case 5:
+					view.printCambiarDatosACargar();
+					int opcion1 = Integer.parseInt(lectura.nextLine());
+					switch(opcion1) {
+					case 1:
+						modelo.RUTA_DATOS_PRINCIPALES = "./data/small/MoviesCastingRaw-small.csv";
+						modelo.RUTA_DATOS_SECUNDARIOS = "./data/small/SmallMoviesDetailsCleaned.csv";
+						view.printMessage("\nSe han establecido los datos pequeÃ±os para cargar.\n");
+						break;
+					case 2:
+						modelo.RUTA_DATOS_PRINCIPALES = "./data/large/AllMoviesCastingRaw.csv";
+						modelo.RUTA_DATOS_SECUNDARIOS = "./data/large/AllMoviesDetailsCleaned.csv";
+						view.printMessage("\nSe han establecido los datos grandes para cargar.\n");
+						break;
+					}
+					break;
+				case 6:
+					acabar =true;
+					view.printDespedida();
 					break;
 				}
-				break;
-			case 6:
-				acabar =true;
-				break;
-			}
-		}
-	}
 
+			}catch (Exception e) {
+				if(e.getClass().equals(java.lang.NumberFormatException.class)) view.printErrorConNumeroDeEntrada();
+				else { view.printErrorDesconocido();}
+			}
+
+		}
+
+	}
 }
