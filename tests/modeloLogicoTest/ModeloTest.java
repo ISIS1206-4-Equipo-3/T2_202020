@@ -68,5 +68,21 @@ public class ModeloTest {
 		assertEquals(2000, modelo.datos.darTamanoFilas());
 		assertNotNull(modelo.datos.darElementoEn(10, 100));
 	}
+	
+	@Test
+	public void testconocerUnDirector() {
+		setUp1();
+		assertNotNull(modelo.conocerUnDirector("Marc Meyer"));
+		assertNotEquals("Director no encontrado",modelo.conocerUnDirector("George Lucas"));
+	
+	}
+	@Test
+	public void testconocerUnActor() {
+		setUp1();
+		assertNotNull(modelo.conocerUnActor("Tom Cruise"));
+		assertNotEquals("Director no encontrado",modelo.conocerUnActor("Brad Pitt"));
+	
+	}
+
 
 }
