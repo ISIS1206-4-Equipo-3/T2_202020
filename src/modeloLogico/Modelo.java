@@ -265,7 +265,8 @@ public class Modelo {
 				nuevoArregloAOrganizar.agregar(Double.parseDouble((String) arregloDinamicoDeGeneroBuscado.darElementoEn(3, numerosDePeliculasARankear[i])), 3, i);
 			}
 			ArregloDinamico arregloOrdenado = organizarRankingGenero(nuevoArregloAOrganizar, orden, criterio);
-			rta += "Se ha creado el ranking por promedio de votaciones con los elementos dados :\n";
+			if(criterio == 2)rta += "Se ha creado el ranking por promedio de votaciones con los elementos dados :\n";
+			else{rta += "Se ha creado el ranking por numero de votos con los elementos dados :\n";}
 			for (int i = 0; i<arregloOrdenado.darTamanoFilas(); i++) {
 				rta += "\n#"+(i+1)+" Titulo:" + arregloOrdenado.darElementoEn(1, i);
 				rta += "\n    - Numero Votos:" + arregloOrdenado.darElementoEn(2, i);
