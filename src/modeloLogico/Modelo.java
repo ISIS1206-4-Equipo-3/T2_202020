@@ -151,7 +151,8 @@ public class Modelo {
 		List<String> directores = new ArrayList<>();
 		double sumatoriaCalificaciones=0;
 		for(int i=0; i<datos.darTamanoFilas();i++) {
-			if(pNombre.equals(datos.darElementoEn(COLUMNA_ACTOR_1,i))||pNombre.equals(datos.darElementoEn(COLUMNA_ACTOR_2,i))||pNombre.equals(datos.darElementoEn(COLUMNA_ACTOR_3,i))||pNombre.equals(datos.darElementoEn(COLUMNA_ACTOR_4,i))||pNombre.equals(datos.darElementoEn(COLUMNA_ACTOR_5,i))) 
+			if(!pNombre.equals("none"))
+			{if(pNombre.equals(datos.darElementoEn(COLUMNA_ACTOR_1,i))||pNombre.equals(datos.darElementoEn(COLUMNA_ACTOR_2,i))||pNombre.equals(datos.darElementoEn(COLUMNA_ACTOR_3,i))||pNombre.equals(datos.darElementoEn(COLUMNA_ACTOR_4,i))||pNombre.equals(datos.darElementoEn(COLUMNA_ACTOR_5,i))) 
 			{	
 				nombresPeliculas += " | "+ datos.darElementoEn(COLUMNA_TITULO, i);
 				e = (String)datos.darElementoEn(COLUMNA_DIRECTORES, i);
@@ -160,6 +161,7 @@ public class Modelo {
 				sumatoriaCalificaciones+=Double.parseDouble((String)datos.darElementoEn(COLUMNA_CALIFICACIONES,i));
 				existeActor=true;
 			}
+		}
 		} 
 
 		for (int i= 0; i < directores.size(); i++) {
